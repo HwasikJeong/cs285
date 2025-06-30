@@ -20,8 +20,8 @@ python cs285/scripts/run_hw2.py --env_name CartPole-v0 -n 100 -b 4000 -rtg -na -
 ```
 
 <p align="center">
-    <img src="https://github.com/user-attachments/assets/69475738-56af-4bc5-a6f7-4ca14f29981f" />
-    <img src="https://github.com/user-attachments/assets/1dfae4c2-fc48-4fe3-a94d-4f49e27562a2" />
+    <img src="https://github.com/user-attachments/assets/69475738-56af-4bc5-a6f7-4ca14f29981f" width="49%"/>
+    <img src="https://github.com/user-attachments/assets/1dfae4c2-fc48-4fe3-a94d-4f49e27562a2" width="49%"/>
     <!-- <figcaption align="center">lb stands for large batch size</figcaption> -->
 </p>
 
@@ -49,19 +49,19 @@ python cs285/scripts/run_hw2.py --env_name HalfCheetah-v4 -n 100 -b 5000 -rtg --
 ```
 
 <p align="center">
-    <img src="https://github.com/user-attachments/assets/e7de5bd3-d548-49a9-b8c5-15ae34e215c6"/>
-    <img src="https://github.com/user-attachments/assets/f75f0aff-99aa-489f-a2d9-ded463772378"/>
+    <img src="https://github.com/user-attachments/assets/e7de5bd3-d548-49a9-b8c5-15ae34e215c6" width="49%"/>
+    <img src="https://github.com/user-attachments/assets/f75f0aff-99aa-489f-a2d9-ded463772378" width="49%"/>
 </p>
 
 **Q1. How does baseline gradient steps (`-bgs`) and baseline learning rate (`-blr`) affect the baseline learning curve and the performance of the policy?**
 
 <p align="center">
-    <img src="https://github.com/user-attachments/assets/227462a3-f10d-44e0-a869-e7c7ac7c02e4"/>
-    <img src="https://github.com/user-attachments/assets/64593e9f-5c54-4d05-88df-13548f4567f3"/>
+    <img src="https://github.com/user-attachments/assets/227462a3-f10d-44e0-a869-e7c7ac7c02e4" width="49%"/>
+    <img src="https://github.com/user-attachments/assets/64593e9f-5c54-4d05-88df-13548f4567f3" width="49%"/>
 </p>
 <p align="center">
-    <img src="https://github.com/user-attachments/assets/57e8c46d-ff19-43a1-b813-5b8ebb09c47d"/>
-    <img src="https://github.com/user-attachments/assets/b199ca08-0558-4d07-84ec-432938147917"/>
+    <img src="https://github.com/user-attachments/assets/57e8c46d-ff19-43a1-b813-5b8ebb09c47d" width="49%"/>
+    <img src="https://github.com/user-attachments/assets/b199ca08-0558-4d07-84ec-432938147917" width="49%"/>
 </p>
 
 The larger the baseline gradient step, the more baseline updates occur within a single policy update iteration, leading to a better approximation of the baseline estimate. As a result, the policy update proceeds with a higher return. A baseline learning rate of 0.01 yields the optimal return value and this should be carefully tuned as a hyperparameter.
