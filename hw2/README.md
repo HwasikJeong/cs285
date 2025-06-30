@@ -1,23 +1,67 @@
-## Setup
+#  👮🏼‍♂️ Policy Gradient
 
-See [installation.md](installation.md). It's worth going through this again since some dependencies have changed since homework 1. You also need to make sure to run `pip install -e .` in the hw2 folder.
+## Experiment 1: Reward-To-Go, Advantage Normalization 
+```
+python cs285/scripts/run_hw2.py --env_name CartPole-v0 -n 100 -b 1000 --exp_name cartpole
 
-## Running on Google Cloud
-Starting with HW2, we will be providing some infrastructure to run experiments on Google Cloud compute. There are some very important caveats:
+python cs285/scripts/run_hw2.py --env_name CartPole-v0 -n 100 -b 1000 -rtg --exp_name cartpole_rtg
 
-- **Do not leave your instance running.** The provided infrastructure tries to prevent this, but it will still be easy to accidentally leave your instance running and burn through all of your credits. You are responsible for making sure you use your credits wisely.
-- **Only use this for big hyperparameter sweeps.** Definitely don't use Google Cloud for debugging; only launch a job once you are 100% sure your code works. Even then, single jobs will probably run faster on your local machine (yes, even if you don't have a GPU). The only reason to use Google Cloud is if you want to run multiple jobs in parallel.
+python cs285/scripts/run_hw2.py --env_name CartPole-v0 -n 100 -b 1000 -na --exp_name cartpole_na
 
-For more instructions, see [google_cloud/README.md](google_cloud/README.md).
+python cs285/scripts/run_hw2.py --env_name CartPole-v0 -n 100 -b 1000 -rtg -na --exp_name cartpole_rtg_na
 
-## Complete the code
+python cs285/scripts/run_hw2.py --env_name CartPole-v0 -n 100 -b 4000 --exp_name cartpole_lb
 
-There are TODOs in these files:
+python cs285/scripts/run_hw2.py --env_name CartPole-v0 -n 100 -b 4000 -rtg --exp_name cartpole_lb_rtg
 
-- `cs285/scripts/run_hw2.py`
-- `cs285/agents/pg_agent.py`
-- `cs285/networks/policies.py`
-- `cs285/networks/critics.py`
-- `cs285/infrastructure/utils.py`
+python cs285/scripts/run_hw2.py --env_name CartPole-v0 -n 100 -b 4000 -na --exp_name cartpole_lb_na
 
-See the [Assignment PDF](hw2.pdf) for more info.
+python cs285/scripts/run_hw2.py --env_name CartPole-v0 -n 100 -b 4000 -rtg -na --exp_name cartpole_lb_rtg_na
+```
+
+<p align="center">
+    <img src="https://github.com/user-attachments/assets/69475738-56af-4bc5-a6f7-4ca14f29981f" />
+    <img src="https://github.com/user-attachments/assets/1dfae4c2-fc48-4fe3-a94d-4f49e27562a2" />
+    <!-- <figcaption align="center">lb stands for large batch size</figcaption> -->
+</p>
+
+**Q1. Which value estimator has better performance without advantage normalization: the trajectory-centric one, or the one using reward-to-go?**
+
+When the experiment was conducted without advantage normalization, the reward-to-go method (orange) converged to a reward of 200 faster than the trajectory-centric method (blue). Reward-to-go leverages the property of causality, meaning that the policy at time t’ cannot affect the reward at time t when t < t’. This method excludes rewards that occurred before time t when calculating the policy gradient and only includes rewards that occur afterward. As a result, it can reduce variance by removing noise when learning the policy.
+
+**Q2. Did advantage normalization help?**
+
+If advantage is used without normalization, the scale of the advantage can vary across different trajectory batches, causing large fluctuations during the policy gradient update process and potentially increasing variance. Additionally, due to these scale differences, extremely large policy updates may occur, reducing training stability. Therefore, by normalizing the advantage before applying it to the policy gradient, it is possible to prevent extremely large policy updates, align the scale of advantages across batches, reduce variance, and achieve relatively more stable learning and faster convergence.
+
+**Q3. Did the batch size make an impact?**
+
+Looking at the graph of the naive policy gradient (blue), we can see that the model using the larger batch size (lb) on the lower side converges faster at the same 50,000 environment steps. This is similar to the principle in deep learning where given the same total number of images, increasing the batch size leads to faster optimization. (Larger batch size ⇒ More samples in one iteration ⇒ Lower variance gradient estimates.)
+
+</br>
+
+## Experiment 2: PG with Baseline
+```
+# No baseline
+python cs285/scripts/run_hw2.py --env_name HalfCheetah-v4 -n 100 -b 5000 -rtg --discount 0.95 -lr 0.01 --exp_name cheetah
+
+# Baseline
+python cs285/scripts/run_hw2.py --env_name HalfCheetah-v4 -n 100 -b 5000 -rtg --discount 0.95 -lr 0.01 --use_baseline -blr 0.01 -bgs 5 --exp_name cheetah_baseline
+```
+
+<p align="center">
+    <img src="https://github.com/user-attachments/assets/e7de5bd3-d548-49a9-b8c5-15ae34e215c6"/>
+    <img src="https://github.com/user-attachments/assets/f75f0aff-99aa-489f-a2d9-ded463772378"/>
+</p>
+
+**Q1. How does baseline gradient steps (`-bgs`) and baseline learning rate (`-blr`) affect the baseline learning curve and the performance of the policy?**
+
+<p align="center">
+    <img src="https://github.com/user-attachments/assets/227462a3-f10d-44e0-a869-e7c7ac7c02e4"/>
+    <img src="https://github.com/user-attachments/assets/64593e9f-5c54-4d05-88df-13548f4567f3"/>
+</p>
+<p align="center">
+    <img src="https://github.com/user-attachments/assets/57e8c46d-ff19-43a1-b813-5b8ebb09c47d"/>
+    <img src="https://github.com/user-attachments/assets/b199ca08-0558-4d07-84ec-432938147917"/>
+</p>
+
+The larger the baseline gradient step, the more baseline updates occur within a single policy update iteration, leading to a better approximation of the baseline estimate. As a result, the policy update proceeds with a higher return. A baseline learning rate of 0.01 yields the optimal return value and this should be carefully tuned as a hyperparameter.
