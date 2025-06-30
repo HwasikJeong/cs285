@@ -48,7 +48,13 @@ class DQNAgent(nn.Module):
         observation = ptu.from_numpy(np.asarray(observation))[None]
 
         # TODO(student): get the action from the critic using an epsilon-greedy strategy
-        action = ...
+        prob = torch.rand((1,)) # U(0,1)
+        if prob >= epsilon:
+            # argmax action selection
+            action = torch.argmax(self.critic(observation), dim=-1)
+        else:
+            # random action selection
+            action = torch.randint(0,self.num_actions,(1,))
 
         return ptu.to_numpy(action).squeeze(0).item()
 
@@ -66,21 +72,20 @@ class DQNAgent(nn.Module):
         # Compute target values
         with torch.no_grad():
             # TODO(student): compute target values
-            next_qa_values = ...
+            next_qa_values = self.target_critic(next_obs) 
 
             if self.use_double_q:
-                raise NotImplementedError
+                next_action = torch.argmax(self.critic(next_obs), dim=-1, keepdim=True)
             else:
-                next_action = ...
-            
-            next_q_values = ...
-            target_values = ...
+                next_action = torch.argmax(next_qa_values, dim=-1, keepdim=True)
+
+            next_q_values = torch.gather(next_qa_values, dim=-1, index=next_action).squeeze(1)
+            target_values = reward + (~done) * self.discount * next_q_values
 
         # TODO(student): train the critic with the target values
-        qa_values = ...
-        q_values = ... # Compute from the data actions; see torch.gather
-        loss = ...
-
+        qa_values = self.critic(obs) 
+        q_values = torch.gather(qa_values, dim=-1, index=action.unsqueeze(1)).squeeze(1) # Compute from the data actions; see torch.gather
+        loss = self.critic_loss(q_values, target_values)
 
         self.critic_optimizer.zero_grad()
         loss.backward()
@@ -88,7 +93,6 @@ class DQNAgent(nn.Module):
             self.critic.parameters(), self.clip_grad_norm or float("inf")
         )
         self.critic_optimizer.step()
-
         self.lr_scheduler.step()
 
         return {
@@ -99,7 +103,7 @@ class DQNAgent(nn.Module):
         }
 
     def update_target_critic(self):
-        self.target_critic.load_state_dict(self.critic.state_dict())
+        self.target_critic.load_state_dict(self.critic.state_dict()) # 𝜙 -> 𝜙' 
 
     def update(
         self,
@@ -114,5 +118,8 @@ class DQNAgent(nn.Module):
         Update the DQN agent, including both the critic and target.
         """
         # TODO(student): update the critic, and the target if needed
+        critic_stats = self.update_critic(obs, action, reward, next_obs, done) # update critic
+        if step % self.target_update_period == 0:
+            self.update_target_critic() # update target_critic
 
         return critic_stats

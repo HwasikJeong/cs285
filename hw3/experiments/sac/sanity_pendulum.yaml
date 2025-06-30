@@ -1,9 +1,15 @@
 base_config: sac
 env_name: Pendulum-v1
 exp_name: sanity_pendulum
-use_entropy_bonus: true
+use_entropy_bonus: true # you can manaully change
 temperature: 0.1
 # Use hard target update by default.
 # comment this line and uncomment the next to test your soft target update.
-target_update_period: 1000
-# soft_target_update_rate: 0.005
+
+# # use HARD target update
+# use_soft_target_update: false
+# target_update_period: 1000
+
+# # use SOFT target update
+use_soft_target_update: true
+soft_target_update_rate: 0.005

@@ -29,7 +29,7 @@ def sac_config(
     replay_buffer_capacity: int = 1000000,
     ep_len: Optional[int] = None,
     discount: float = 0.99,
-    use_soft_target_update: bool = False,
+    use_soft_target_update: bool = True, # FIXME
     target_update_period: Optional[int] = None,
     soft_target_update_rate: Optional[float] = None,
     # Actor-critic configuration
