@@ -65,3 +65,22 @@ python cs285/scripts/run_hw2.py --env_name HalfCheetah-v4 -n 100 -b 5000 -rtg --
 </p>
 
 The larger the baseline gradient step, the more baseline updates occur within a single policy update iteration, leading to a better approximation of the baseline estimate. As a result, the policy update proceeds with a higher return. A baseline learning rate of 0.01 yields the optimal return value and this should be carefully tuned as a hyperparameter.
+
+</br>
+
+## Experiment 3: Generalized Advantage Estimation (GAE)
+```
+lambda=(0.0 0.95 0.98 0.99 1.0) \
+&& \
+for lamb in ${lambda[@]}; do python cs285/scripts/run_hw2.py --env_name LunarLander-v2 --ep_len 1000 --discount 0.99 -n 300 -l 3 -s 128 -b 2000 -lr 0.001 --use_reward_to_go --use_baseline --gae_lambda ${lamb} --exp_name lunar_lander_lambda${lamb}; done;
+```
+
+**Q1. Consider the parameter $\lambda$. What does $\lambda = 0$ correspond to? What about $\lambda = 1$? Relate this to the task performance in `LunarLander-v2`.**
+
+<p align="center">
+    <img src="https://github.com/user-attachments/assets/594672cf-f1e9-4993-9d11-adaca3f30ce0" width="49%"/>
+</p>
+
+$\lambda$ acts as a bias-variance tradeoff parameter. When $\lambda$ = 0, GAE reduces to the 1-step Temporal Difference (TD) error, resulting in high bias but low variance. On the other hand, when $\lambda$ = 1, it uses the full Monte Carlo advantage, which gives low bias but high variance. 
+
+When $\lambda$ is 0, the learning relies only on the 1-step TD error, leading to too much bias and poor training performance. In contrast, when $\lambda$ is 1, it uses the full Monte Carlo return, achieving the lowest bias but suffering from very high variance, making the learning process noisy shown above learning curve. Therefore, due to this bias-variance tradeoff, a $\lambda$ value around 0.98–0.99 is considered a sweet spot.
