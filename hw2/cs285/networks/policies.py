@@ -104,6 +104,7 @@ class MLPPolicyPG(MLPPolicy):
         # TODO: implement the policy gradient actor update.
         acs_dist = self.forward(obs)
         log_prob = acs_dist.log_prob(actions)
+        # log_prob.retain_grad() # to see that all gradients of log_prob are negative
         loss = -torch.mean(log_prob * advantages)
 
         # per_traj_losses = []
