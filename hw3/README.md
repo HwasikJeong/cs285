@@ -1,4 +1,6 @@
-#  🍎 [Q-Learning](https://github.com/JeongHwaSik/cs285/blob/main/hw3/hw3.pdf)
+#  🍎 Q-Learning
+
+See analysis of the Q-Learning [🔥here🔥](https://github.com/JeongHwaSik/cs285/blob/main/hw3/hw3.pdf).
 
 ## Experiment 1: Deep Q-Learning (DQN)
 ```

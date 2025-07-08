@@ -1,5 +1,7 @@
 #  👮🏼‍♂️ Policy Gradient
 
+See analysis of the Policy Gradient [🔥here🔥](https://github.com/JeongHwaSik/cs285/blob/main/hw2/hw2.pdf).
+
 ## Experiment 1: Reward-To-Go, Advantage Normalization 
 ```
 python cs285/scripts/run_hw2.py --env_name CartPole-v0 -n 100 -b 1000 --exp_name cartpole
