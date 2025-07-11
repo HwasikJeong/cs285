@@ -149,13 +149,12 @@ class SoftActorCritic(nn.Module):
 
         # TODO(student): Implement the different backup strategies.
         if self.target_critic_backup_type == "doubleq":
-            indices = torch.LongTensor([1, 0]) # suited for two target critics
-            next_qs = next_qs[indices]
+            next_qs = next_qs.flip(dims=(0,))
         elif self.target_critic_backup_type == "min": # clipped double-Q
             next_qs = torch.min(next_qs, dim=0).values
         elif self.target_critic_backup_type == "mean":
             next_qs = torch.mean(next_qs, dim=0)
-        elif self.target_critic_backup_type == "ensemble": # TODO: add *.yaml for ensembled clipped double-Q
+        elif self.target_critic_backup_type == "redq": # "Randomized Ensembled Double-Q"
             indices = torch.randint(low=0, high=self.num_critic_networks, size=(2,))
             next_qs = next_qs[indices]
             next_qs = torch.min(next_qs, dim=0).values
@@ -245,7 +244,7 @@ class SoftActorCritic(nn.Module):
 
         # TODO(student): Compute the entropy of the action distribution.
         # Note: Think about whether to use .rsample() or .sample() here...
-        sample_q_ac = action_distribution.rsample()
+        sample_q_ac = action_distribution.rsample() # use REPARAMETERIZATION trick for differentiating sampling
         entropy = -action_distribution.log_prob(sample_q_ac) 
         return entropy
 
