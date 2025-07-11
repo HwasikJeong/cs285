@@ -34,14 +34,11 @@ In the graph above, the dark blue horizontal line represents the true Q-value at
 
 ## Experiment 2: Double DQN
 ```
-python cs285/scripts/run_hw3_dqn.py -cfg experiments/dqn/lunarlander_doubleq.yaml --
-seed 1
+python cs285/scripts/run_hw3_dqn.py -cfg experiments/dqn/lunarlander_doubleq.yaml --seed 1
 
-python cs285/scripts/run_hw3_dqn.py -cfg experiments/dqn/lunarlander_doubleq.yaml --
-seed 2
+python cs285/scripts/run_hw3_dqn.py -cfg experiments/dqn/lunarlander_doubleq.yaml --seed 2
 
-python cs285/scripts/run_hw3_dqn.py -cfg experiments/dqn/lunarlander_doubleq.yaml --
-seed 3
+python cs285/scripts/run_hw3_dqn.py -cfg experiments/dqn/lunarlander_doubleq.yaml --seed 3
 ```
 
 **Q1. Compare "vanilla" DQN with Double DQN.**
@@ -65,6 +62,22 @@ The graph on the left shows training results on `LunarLander-v2` using DQN (and 
 </br>
 
 ## Experiment 3: [Soft Actor-Critic (SAC)]((https://arxiv.org/pdf/1801.01290))
+
+```
+# REINFORCE Actor update
+python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/halfcheetah_reinforce1.yaml
+python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/halfcheetah_reinforce10.yaml
+
+# REPARAMETRIZE Actor update
+python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/halfcheetah_reparametrize.yaml
+
+# Target value stabilization
+python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/hopper.yaml
+python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/hopper_doubleq.yaml
+python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/hopper_clipq.yaml
+python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/hopper_redq.yaml
+```
+
 DQN performs well in environments with discrete action spaces because computing $\max\limits_{a}Q(s,a)$ is straightforward. However, in continuous action spaces, finding this maximum becomes a challenging optimization problem — often non-linear and non-convex. To address this, Actor-Critic methods use two separate networks: one to approximate the Q-function (similar to DQN) and another to represent the policy $\pi$ that is explicitly trained to maximize the expected Q-value, $E_{a\sim\pi(a|s)}Q(s,a)$. There are two main approaches to updating the policy $\pi$: the **REINFORCE gradient estimator** and the **REPARAMETRIZATION trick**.
 
 **1️⃣ REINFORCE Gradient Estimator**
@@ -85,12 +98,6 @@ $$
 = E_{s\sim D, a\sim\pi(a|s)}[\nabla_{\theta}log[\pi_{\theta}(a|s)]Q(s,a)]
 $$
 
-```
-python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/halfcheetah_reinforce1.yaml
-
-python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/halfcheetah_reinforce10.yaml
-```
-
 **Q1. Compare the performance of single-sample REINFORCE and 10-sample REINFORCE.**
 
 REINFORCE works reasonably well when many samples are drawn from the policy $\pi$ to estimate the gradient. However, in high-dimensional action spaces, the variance of this estimator can become quite large, requiring significantly more samples to obtain stable and accurate updates. 
@@ -106,7 +113,7 @@ This estimator is unbiased but often suffers from high variance, especially in c
 In contrast, 10-sample REINFORCE averages the gradient over 10 independently sampled actions:
 
 $$
-\nabla_{\theta}J(\pi_{\theta})\approx\frac{1}{10}\sum\limits_{i=1}^{10}\nabla_{\theta}log[⁡\pi_{\theta}(a_i|s)]Q(s,a_i)\;\;\;\;\; a_i\sim\pi(a|s)
+\nabla_{\theta}J(\pi_{\theta})\approx\frac{1}{10}\sum\limits_{i=1}^{10}\nabla_{\theta}log[⁡\pi_{\theta}(a_i|s)]Q(s,a_i), a_i\sim\pi(a|s)
 $$
 
 This reduces the variance of the gradient estimate and generally leads to more stable learning. However, it comes at the cost of increased computation per update. In high-dimensional spaces, such multi-sample averaging becomes more critical as single-sample estimates may not provide reliable signals for improving the policy.
@@ -135,10 +142,6 @@ $$
  = \nabla_{\theta}E_{s\sim D, \epsilon\sim N}[\nabla_{\theta}Q(s,\mu+\sigma\epsilon)]
 $$
 
-```
-python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/halfcheetah_reparametrize.yaml
-```
-
 **Q1. Compare single-sample REINFORCE and 10-sample REINFORCE with the REPARAMETERIZATION trick.**
 
 <p align="center">
@@ -154,4 +157,4 @@ The above graph shows that REPARAMETRIZATION-based actor update in SAC significa
     <img src="https://github.com/user-attachments/assets/1686baf4-6147-4d1e-ae1d-50d947d6bd67" width="49%"/>
 </p>
 
-The results show that all the tested methods help reduce overestimation bias to some extent. On the right graph, Q-values final point stays around 150–250, while the actual evaluation returns in the first graph reach 400–700, indicating that none of the methods significantly overestimate future returns. Among them, 🔴 Randomized Ensembled Double-Q and 🟢 Clipped Double-Q produce more conservative Q-value estimates, likely due to their use of `torch.min` when computing target values. Despite these lower estimates, both methods achieve competitive or even superior evaluation returns, showing that more cautious value estimates can still lead to effective policy learning. This underscores the importance of stabilizing target values rather than simply maximizing Q-values.
+The results show that all the tested methods help reduce overestimation bias to some extent. On the right graph, Q-values final point stays around 150–250, while the actual evaluation returns in the first graph reach 400–700, indicating that none of the methods significantly overestimate future returns. Among them, 🔴redq and 🟢clip-q produce more conservative Q-value estimates, likely due to their use of `torch.min` when computing target values. Despite these lower estimates, both methods achieve competitive or even superior evaluation returns, showing that more cautious value estimates can still lead to effective policy learning. This underscores the importance of stabilizing target values rather than simply maximizing Q-values.
