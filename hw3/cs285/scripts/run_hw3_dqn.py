@@ -164,9 +164,11 @@ def run_training_loop(config: dict, logger: Logger, args: argparse.Namespace):
                 ep_len,
             )
             returns = [t["episode_statistics"]["r"] for t in trajectories]
+            dis_returns = [t["episode_statistics"]["dr"] for t in trajectories]
             ep_lens = [t["episode_statistics"]["l"] for t in trajectories]
 
             logger.log_scalar(np.mean(returns), "eval_return", step)
+            logger.log_scalar(np.mean(dis_returns), "eval_discount_return", step)
             logger.log_scalar(np.mean(ep_lens), "eval_ep_len", step)
 
             if len(returns) > 1:

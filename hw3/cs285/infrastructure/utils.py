@@ -16,7 +16,7 @@ def sample_trajectory(
 ) -> Dict[str, np.ndarray]:
     """Sample a rollout in the environment from a policy."""
     ob = env.reset()
-    obs, acs, rewards, next_obs, terminals, image_obs = [], [], [], [], [], []
+    obs, acs, rewards, discounted_rewards, next_obs, terminals, image_obs = [], [], [], [], [], [], []
     steps = 0
 
     while True:
@@ -39,6 +39,7 @@ def sample_trajectory(
 
         # TODO: take that action and get reward and next ob
         next_ob, rew, done, info = env.step(ac)
+        d_rew = (policy.discount**steps) * rew # discounted rewards
 
         # TODO rollout can end due to done, or due to max_length
         steps += 1
@@ -48,6 +49,7 @@ def sample_trajectory(
         obs.append(ob)
         acs.append(ac)
         rewards.append(rew)
+        discounted_rewards.append(d_rew)
         next_obs.append(next_ob)
         terminals.append(rollout_done)
 
@@ -57,7 +59,7 @@ def sample_trajectory(
         if rollout_done:
             break
 
-    episode_statistics = {"l": steps, "r": np.sum(rewards)}
+    episode_statistics = {"l": steps, "r": np.sum(rewards), "dr": np.sum(discounted_rewards)}
     if "episode" in info:
         episode_statistics.update(info["episode"])
 
@@ -67,6 +69,7 @@ def sample_trajectory(
         "observation": np.array(obs, dtype=np.float32),
         "image_obs": np.array(image_obs, dtype=np.uint8),
         "reward": np.array(rewards, dtype=np.float32),
+        "discounted_reward": np.array(discounted_rewards, dtype=np.float32),
         "action": np.array(acs, dtype=np.float32),
         "next_observation": np.array(next_obs, dtype=np.float32),
         "terminal": np.array(terminals, dtype=np.float32),

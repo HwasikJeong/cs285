@@ -2,8 +2,8 @@ env_name: cheetah-cs285-v0
 exp_name: cheetah_0iter
 
 base_config: mpc
-num_layers: 1
-hidden_size: 32
+num_layers: 1 # TODO: 4
+hidden_size: 32 # TODO: 64
 
 num_iters: 1
 initial_batch_size: 20000

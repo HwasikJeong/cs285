@@ -1,0 +1,38 @@
+session_name: cs285_hw3
+windows :
+  - window_name : HW3
+    panes :
+      - shell_command :
+        # Debugging: it should reach reward(eval_return) of nearly 500 within a few thousand steps
+        - python cs285/scripts/run_hw3_dqn.py -cfg experiments/dqn/cartpole.yaml
+
+        # DQN LunarLander-v2 with different seed
+        - python cs285/scripts/run_hw3_dqn.py -cfg experiments/dqn/lunarlander.yaml --seed 1
+        - python cs285/scripts/run_hw3_dqn.py -cfg experiments/dqn/lunarlander.yaml --seed 2
+        - python cs285/scripts/run_hw3_dqn.py -cfg experiments/dqn/lunarlander.yaml --seed 3
+
+        # Double-DQN LunarLander-v2 with different seed
+        - python cs285/scripts/run_hw3_dqn.py -cfg experiments/dqn/lunarlander_doubleq.yaml --seed 1
+        - python cs285/scripts/run_hw3_dqn.py -cfg experiments/dqn/lunarlander_doubleq.yaml --seed 2
+        - python cs285/scripts/run_hw3_dqn.py -cfg experiments/dqn/lunarlander_doubleq.yaml --seed 3
+
+        # Double-DQN MsPacman-v0
+        - python cs285/scripts/run_hw3_dqn.py -cfg experiments/dqn/mspacman.yaml
+
+        # Soft Actor-Critic REINFORCE
+        - python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/halfcheetah_reinforce1.yaml
+        - python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/halfcheetah_reinforce10.yaml
+
+        # Soft Actor-Critic REPARAMETRIZATIOIN
+        - python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/halfcheetah_reparametrize.yaml
+
+        # Soft Actor-Critic different q-backup strategies (single-q, double-q, clip-q, ensemble)
+        - python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/hopper.yaml
+        - python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/hopper_doubleq.yaml
+        - python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/hopper_clipq.yaml
+        - python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/hopper_redq.yaml
+
+        # Final Humanoid
+        - python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/humanoid.yaml -nvid 1 
+ 
+        
