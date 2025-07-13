@@ -10,7 +10,7 @@ https://github.com/user-attachments/assets/484bcba9-099e-4f83-be3a-d6427c185cf2
 
 </br>
 
-# 2. 👮🏼‍♂️ Policy Gradient
+# 2. 👮🏼‍♂️ (On-Policy) Policy Gradient
 I implemented **Policy Gradient with a Baseline**, incorporating both reward-to-go and advantage normalization, as well as an advanced policy gradient method called **Generalized Advantage Estimation (GAE)**. These approaches were used to train policy for controlling the environments. More implementation details and analysis can be found [🔥here🔥](https://github.com/JeongHwaSik/cs285/tree/main/hw2).
 
 https://github.com/user-attachments/assets/7c07762d-5ab9-4def-9cba-a3edd7cd5d4d
@@ -19,7 +19,13 @@ https://github.com/user-attachments/assets/804d5d89-1d33-4396-ab9b-babf095c8cbe
 
 </br>
 
-# 3. 🍎 Deep Q-Learning (DQN)
+# 3. 🍎 (Off-Policy) Deep Q-Learning (DQN)
 I implemented **basic DQN** and **Double DQN** for discrete action spaces, and **Soft Actor-Critic (SAC)** for continuous action spaces. These Q-learning algorithms involve many implementation details so refer to [🔥this page🔥](https://github.com/JeongHwaSik/cs285/tree/main/hw3) for a more in-depth analysis.
 
+The video below shows the results of training SAC — with the reparameterization trick used for actor updates — for just 1M iterations. Try 5M iterations afterwards.
+
 https://github.com/user-attachments/assets/42ed7cc3-8174-43a0-a366-94b8915f7874
+
+</br>
+
+# 4. Model-Based
