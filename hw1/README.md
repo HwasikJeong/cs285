@@ -45,7 +45,7 @@ python cs285/scripts/run_hw1.py --expert_policy_file cs285/policies/experts/Ant.
 
 <div align='center'>
 
-| Environment     | DAgger Average Return | BC Average Return  | Improvement |
+| Environment     | DAgger Avg. Return | BC Avg. Return  | Improvement |
 |-----------------|-----------------------|--------------------------|--------|
 | `Ant-v4`          | 4791                  | 1145                     | ×4.18  |
 | `HalfCheetah-v4`  | 4078                  | 3234                     | ×1.26  |
