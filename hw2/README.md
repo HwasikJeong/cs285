@@ -5,7 +5,7 @@ See analysis of the Policy Gradient [🔥here🔥](https://github.com/JeongHwaSi
 ## Experiment 1: Reward-To-Go, Advantage Normalization 
 
 ![Tag](https://img.shields.io/badge/Model_Free-blue)
-![Tag](https://img.shields.io/badge/On_Policy-red)
+![Tag](https://img.shields.io/badge/On_Policy-darkred)
 ![Tag](https://img.shields.io/badge/Discrete_Action_Space-green)
 ![Tag](https://img.shields.io/badge/Continuous_Action_Space-darkgreen)
 
@@ -50,7 +50,7 @@ Looking at the graph of the naive policy gradient (blue), we can see that the mo
 ## Experiment 2: PG with Baseline
 
 ![Tag](https://img.shields.io/badge/Model_Free-blue)
-![Tag](https://img.shields.io/badge/On_Policy-red)
+![Tag](https://img.shields.io/badge/On_Policy-darkred)
 ![Tag](https://img.shields.io/badge/Discrete_Action_Space-green)
 ![Tag](https://img.shields.io/badge/Continuous_Action_Space-darkgreen)
 
@@ -85,7 +85,7 @@ The larger the baseline gradient step, the more baseline updates occur within a 
 ## Experiment 3: Generalized Advantage Estimation (GAE)
 
 ![Tag](https://img.shields.io/badge/Model_Free-blue)
-![Tag](https://img.shields.io/badge/On_Policy-red)
+![Tag](https://img.shields.io/badge/On_Policy-darkred)
 ![Tag](https://img.shields.io/badge/Discrete_Action_Space-green)
 ![Tag](https://img.shields.io/badge/Continuous_Action_Space-darkgreen)
 
