@@ -4,9 +4,9 @@ See analysis of the Q-Learning [🔥here🔥](https://github.com/JeongHwaSik/cs2
 
 ## Experiment 1: Deep Q-Learning (DQN) 
 
-<span style="background-color:#f2f2f2; color:#000; padding:4px 8px; border-radius:4px;">Model-Free</span>
-<span style="background-color:#d1ecf1; color:#0c5460; padding:4px 8px; border-radius:4px;">Off-Policy</span>
-<span style="background-color:#e2e3e5; color:#383d41; padding:4px 8px; border-radius:4px;">Discrete Action Space</span>
+![Tag](https://img.shields.io/badge/Model_Free-blue)
+![Tag](https://img.shields.io/badge/Off_Policy-red)
+![Tag](https://img.shields.io/badge/Discrete_Action_Space-green)
 
 ```
 python cs285/scripts/run_hw3_dqn.py -cfg experiments/dqn/lunarlander.yaml --seed 1
@@ -39,9 +39,9 @@ In the graph above, the dark blue horizontal line represents the true Q-value at
 
 ## Experiment 2: Double DQN
 
-<span style="background-color:#f2f2f2; color:#000; padding:4px 8px; border-radius:4px;">Model-Free</span>
-<span style="background-color:#d1ecf1; color:#0c5460; padding:4px 8px; border-radius:4px;">Off-Policy</span>
-<span style="background-color:#e2e3e5; color:#383d41; padding:4px 8px; border-radius:4px;">Discrete Action Space</span>
+![Tag](https://img.shields.io/badge/Model_Free-blue)
+![Tag](https://img.shields.io/badge/Off_Policy-red)
+![Tag](https://img.shields.io/badge/Discrete_Action_Space-green)
 
 ```
 python cs285/scripts/run_hw3_dqn.py -cfg experiments/dqn/lunarlander_doubleq.yaml --seed 1
@@ -73,9 +73,9 @@ The graph on the left shows training results on `LunarLander-v2` using DQN (and 
 
 ## Experiment 3: [Soft Actor-Critic (SAC)]((https://arxiv.org/pdf/1801.01290))
 
-<span style="background-color:#f2f2f2; color:#000; padding:4px 8px; border-radius:4px;">Model-Free</span>
-<span style="background-color:#d1ecf1; color:#0c5460; padding:4px 8px; border-radius:4px;">Off-Policy</span>
-<span style="background-color:#e2e3e5; color:#383d41; padding:4px 8px; border-radius:4px;">Continuous Action Space</span>
+![Tag](https://img.shields.io/badge/Model_Free-blue)
+![Tag](https://img.shields.io/badge/Off_Policy-red)
+![Tag](https://img.shields.io/badge/Continuous_Action_Space-darkgreen)
 
 ```
 # REINFORCE Actor update
