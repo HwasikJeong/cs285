@@ -1,8 +1,7 @@
 Assignments for [Berkeley CS 285: Deep Reinforcement Learning, Decision Making, and Control](http://rail.eecs.berkeley.edu/deeprlcourse/).
 
 # 1. 🥷 Imitation Learning
-The behavioral cloning agent achieved approximately 25% of the expert's performance, whereas the DAGGER agent achieved over 99%. The difference is clearly visible in the video.
-For a more detailed view, run `tensorboard --logdir data` within the `hw1` directory.
+I implemented **Behavior Cloning (BC)**, which directly imitates the expert’s behavior, and **DAGGER**, which improves imitation by incorporating additional data collected through expert queries during the agent’s own rollouts.
 
 https://github.com/user-attachments/assets/2f44c5fb-f61d-4416-ab5d-ed811b7a23f8
 
