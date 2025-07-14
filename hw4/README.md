@@ -29,10 +29,7 @@ Since CEM is significantly slower than random shooting, I limited it to 5 iterat
 
 ## Experiment 2: [MBPO (Model-Based Policy Optimization)](https://arxiv.org/pdf/1906.08253)
 
-<img src="https://img.shields.io/badge/Model_Based-skyblue" alt="Tag">
-<img src="https://img.shields.io/badge/Off_Policy-red" alt="Tag">
-<img src="https://img.shields.io/badge/Discrete_Action_Space-green" alt="Tag">
-<img src="https://img.shields.io/badge/Continuous_Action_Space-darkgreen" alt="Tag">
+<img src="https://img.shields.io/badge/Model_Based-skyblue"> <img src="https://img.shields.io/badge/Off_Policy-red" alt="Tag"> <img src="https://img.shields.io/badge/Discrete_Action_Space-green" alt="Tag"> <img src="https://img.shields.io/badge/Continuous_Action_Space-darkgreen" alt="Tag">
 
 Instead of using action selection methods (e.g., CEM or random shooting) as in experiment 1, we can use an explicit policy such as Soft Actor-Critic (SAC) and train it using both real-world transitions $p(s'|s,a)$ and transitions from a learned model $f(s'|s,a)$.
 
