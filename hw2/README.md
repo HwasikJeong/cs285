@@ -3,6 +3,12 @@
 See analysis of the Policy Gradient [🔥here🔥](https://github.com/JeongHwaSik/cs285/blob/main/hw2/hw2.pdf).
 
 ## Experiment 1: Reward-To-Go, Advantage Normalization 
+
+![Tag](https://img.shields.io/badge/Model_Free-blue)
+![Tag](https://img.shields.io/badge/On_Policy-red)
+![Tag](https://img.shields.io/badge/Discrete_Action_Space-green)
+![Tag](https://img.shields.io/badge/Continuous_Action_Space-darkgreen)
+
 ```
 python cs285/scripts/run_hw2.py --env_name CartPole-v0 -n 100 -b 1000 --exp_name cartpole
 
@@ -42,6 +48,12 @@ Looking at the graph of the naive policy gradient (blue), we can see that the mo
 </br>
 
 ## Experiment 2: PG with Baseline
+
+![Tag](https://img.shields.io/badge/Model_Free-blue)
+![Tag](https://img.shields.io/badge/On_Policy-red)
+![Tag](https://img.shields.io/badge/Discrete_Action_Space-green)
+![Tag](https://img.shields.io/badge/Continuous_Action_Space-darkgreen)
+
 ```
 # No baseline
 python cs285/scripts/run_hw2.py --env_name HalfCheetah-v4 -n 100 -b 5000 -rtg --discount 0.95 -lr 0.01 --exp_name cheetah
@@ -71,6 +83,12 @@ The larger the baseline gradient step, the more baseline updates occur within a 
 </br>
 
 ## Experiment 3: Generalized Advantage Estimation (GAE)
+
+![Tag](https://img.shields.io/badge/Model_Free-blue)
+![Tag](https://img.shields.io/badge/On_Policy-red)
+![Tag](https://img.shields.io/badge/Discrete_Action_Space-green)
+![Tag](https://img.shields.io/badge/Continuous_Action_Space-darkgreen)
+
 ```
 lambda=(0.0 0.95 0.98 0.99 1.0) \
 && \
