@@ -14,7 +14,7 @@ python cs285/scripts/run_hw1.py --expert_policy_file cs285/policies/experts/Ant.
 
 **❓Q1. How closely does the BC agent's behavior match that of the expert policy?**
 
-| Environment     | Expert Avg. Return | BC Agent Avg. Return  | closeness (%) |
+| Environment     | Expert Avg. Return | BC Avg. Return  | closeness (%) |
 |-----------------|-----------------------|--------------------------|--------|
 | `Ant-v4`          | 4682                  | 1145                     | 24.46% |
 | `HalfCheetah-v4`  | 4035                  | 3234                     | 80.15% |
@@ -37,12 +37,16 @@ python cs285/scripts/run_hw1.py --expert_policy_file cs285/policies/experts/Ant.
 
 **❓Q1. Compare DAGGER with Behavior Cloning (BC).**
 
-| Environment     | DAGGER Average Return | BC Agent Average Return  | Improvement |
+<div align='center'>
+
+| Environment     | DAGGER Average Return | BC Average Return  | Improvement |
 |-----------------|-----------------------|--------------------------|--------|
 | `Ant-v4`          | 4791                  | 1145                     | ×4.18  |
 | `HalfCheetah-v4`  | 4078                  | 3234                     | ×1.26  |
 | `Walker2d-v4`     | 5368                  | 356                      | ×15.08 |
 | `Hopper-v4`       | 3738                  | 879                      | ×4.25  |
+
+</div>
 
 DAGGER consistently outperforms Behavior Cloning (BC) across all environments, with improvements ranging from ×1.26 in `HalfCheetah-v4` to over ×15 in `Walker2d-v4`. The most dramatic gain is observed in `Walker2d-v4`, where DAGGER achieves an average return more than 15 times higher than BC.
 
