@@ -1,0 +1,24 @@
+session_name: cs285_hw4_extra
+windows :
+  - window_name : HW4_extra
+    panes :
+      - shell_command :
+        # Problem 1: learning models: f(s'|s,a)
+        - python cs285/scripts/run_hw4.py -cfg experiments/mpc/halfcheetah_0_iter.yaml
+
+        # Problem 2: action selection based on learned models
+        - python cs285/scripts/run_hw4.py -cfg experiments/mpc/obstacles_1_iter.yaml
+
+        # Problem 3: run MBRL
+        - python cs285/scripts/run_hw4.py -cfg experiments/mpc/obstacles_multi_iter.yaml
+        - python cs285/scripts/run_hw4.py -cfg experiments/mpc/reacher_multi_iter.yaml
+        - python cs285/scripts/run_hw4.py -cfg experiments/mpc/halfcheetah_multi_iter.yaml
+
+        # Problem 4: run MBRL with different hyperparameters: # of esemble models, # of random action sequences, MPC planning horizon
+        - python cs285/scripts/run_hw4.py -cfg experiments/mpc/reacher_ablation.yaml
+
+        # Problem 5: compare CEM with Random-Shooting
+        - python cs285/scripts/run_hw4.py -cfg experiments/mpc/halfcheetah_cem.yaml
+
+        # Problem 6: MBPO
+        - python cs285/scripts/run_hw4.py -cfg experiments/mpc/halfcheetah_mbpo.yaml --sac_config_file experiments/sac/halfcheetah_clipq.yaml
