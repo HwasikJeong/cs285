@@ -211,7 +211,8 @@ def run_training_loop(
             print("Training SAC agent...")
             for i in tqdm.trange(sac_config["num_agent_train_steps_per_iter"], dynamic_ncols=True):
                 if sac_config["mbpo_rollout_length"] > 0:
-                    # collect a rollout using the dynamics model
+                    # collect a rollout using the learned dynamics model f(s'|s, a) 
+                    # without real-world transition p(s'|s, a) (=> "imagination")
                     rollout = collect_mbpo_rollout(
                         env,
                         mb_agent,
