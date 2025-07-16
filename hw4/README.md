@@ -16,8 +16,7 @@ Model-Based Reinforcement Learning (MBRL) addresses this limitation by learning 
 **❓Q1. Compare two action selection methods in MBRL, which are "derivative-free optimization": [CEM(Cross-Entropy Method)](https://arxiv.org/pdf/1909.11652) & [Random-Shooting](https://arxiv.org/pdf/1909.11652).**
 
 <p align="center">
-    <img src="" width="49%"/>
-    <img src="" width="49%"/>
+    <img src="https://github.com/user-attachments/assets/a2df1a67-7b5d-4184-a64a-adf11172f73e" width="49%"/>
     <!-- <figcaption align="center">lb stands for large batch size</figcaption> -->
 </p>
 
