@@ -16,7 +16,7 @@ Model-Based Reinforcement Learning (MBRL) addresses this limitation by learning 
 **❓Q1. Compare two action selection methods in MBRL, which are "derivative-free optimization": [CEM(Cross-Entropy Method)](https://arxiv.org/pdf/1909.11652) & [Random-Shooting](https://arxiv.org/pdf/1909.11652).**
 
 <p align="center">
-    <img src="https://github.com/user-attachments/assets/a2df1a67-7b5d-4184-a64a-adf11172f73e" width="49%"/>
+    <img src="https://github.com/user-attachments/assets/9e3534fe-a47b-4e1a-9010-9746e1770d4a" width="49%"/>
     <!-- <figcaption align="center">lb stands for large batch size</figcaption> -->
 </p>
 
@@ -47,7 +47,7 @@ As shown in the graph above, Model-Based SAC significantly outperforms Model-Fre
 **❓Q2. Compare Dyna-style MBPO (single step rollouts from the model) with 10-step MBPO (10-step rollouts from the model).**
 
 <p align="center">
-    <img src="https://github.com/user-attachments/assets/522c489e-ffd9-4cdf-a8e9-2d2d1d81df9c" width="49%"/>
+    <img src="https://github.com/user-attachments/assets/b0f85582-3d11-4f12-8af7-b9e4eadb50ee" width="49%"/>
     <!-- <figcaption align="center">lb stands for large batch size</figcaption> -->
 </p>
 
