@@ -20,7 +20,7 @@ Model-Based Reinforcement Learning (MBRL) addresses this limitation by learning 
     <!-- <figcaption align="center">lb stands for large batch size</figcaption> -->
 </p>
 
-Derivative-free optimization refers to optimizing action sequences without relying on gradient computations using methods such as Cross-Entropy Method (CEM) or Random Shooting (which are action selection methods for this experiment). [These approaches are widely used due to their robustness against model inaccuracies.](https://arxiv.org/pdf/1912.01603)
+Derivative-free optimization refers to optimizing action sequences without relying on gradient computations using methods such as Cross-Entropy Method (CEM) or Random Shooting (which are action selection methods for this experiment). These approaches are widely used due to their robustness against model inaccuracies mentioned in this [paper](https://arxiv.org/pdf/1912.01603)
 
 Since CEM is significantly slower than random shooting, I limited it to 5 iterations whereas random-shooting was run for 15 iterations.
 
