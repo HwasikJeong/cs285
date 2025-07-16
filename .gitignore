@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# data files & analysis (too big)
+**/data/
+**/analysis/
