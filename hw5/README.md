@@ -1,8 +1,8 @@
-# Exploration & Offline Reinforcement Learning
+# 🔎 Exploration & 💼 Offline Reinforcement Learning
 
-See analysis of the MBRL [🔥here🔥]().
+See analysis of the Exploration & Offline RL [🔥here🔥](https://github.com/JeongHwaSik/cs285/blob/main/hw5/hw5.pdf).
 
-## Experiment 1: Exploration
+## Experiment 1: 🔎 Exploration
 
 <!-- ![Tag](https://img.shields.io/badge/Model_Based-skyblue)
 ![Tag](https://img.shields.io/badge/Off_Policy-red)
@@ -33,7 +33,7 @@ As shown, the agent is able to cover a much larger and more diverse region of th
 
 </br>
 
-## Experiment 2: Offline RL
+## Experiment 2: 💼 Offline RL
 
 Offline RL is ~
 
