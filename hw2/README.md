@@ -1,6 +1,10 @@
-#  👮🏼‍♂️ Policy Gradient
+#  👮🏼‍♂️ Policy Gradients
 
-See analysis of the Policy Gradient [🔥here🔥](https://github.com/JeongHwaSik/cs285/blob/main/hw2/hw2.pdf).
+The Policy Gradient (PG) method directly estimates the gradient of the reinforcement learning objective $J(\theta) = E_{\tau\sim{\pi_{\theta}(\tau)}}[r(\tau)]$ in order to maximize expected cumulative reward and learn an explicit policy $\pi(a|s)$. Here, $\tau$ represents a trajectory (or rollout), which is a sequence of states, actions, and rewards sampled from the policy and real-world transitions (`env.step()`). For a detailed derivation of the Policy Gradient, see [🔥here🔥](https://github.com/JeongHwaSik/cs285/blob/main/hw2/hw2.pdf).
+
+When computing gradients, several variants can be used to reduce variance, such as the reward-to-go formulation or incorporating a baseline (often a value function). These techniques are important because the PG method typically suffers from high variance due to its reliance on Monte Carlo sampling.
+
+Since the gradients depend directly on trajectories sampled from the current policy, PG methods are inherently **on-policy**. This means that the data $(s, a, r, s')$ must be collected using the current version of the policy to maintain correct gradient estimation. However, there are also **off-policy variants of policy gradient methods**, which use techniques like importance sampling to correct for the mismatch between the behavior policy (used to collect data) and the target policy (being optimized).
 
 ## Experiment 1: Reward-To-Go, Advantage Normalization 
 
@@ -90,9 +94,7 @@ The larger the baseline gradient step, the more baseline updates occur within a 
 ![Tag](https://img.shields.io/badge/Continuous_Action_Space-darkgreen)
 
 ```
-lambda=(0.0 0.95 0.98 0.99 1.0) \
-&& \
-for lamb in ${lambda[@]}; do python cs285/scripts/run_hw2.py --env_name LunarLander-v2 --ep_len 1000 --discount 0.99 -n 300 -l 3 -s 128 -b 2000 -lr 0.001 --use_reward_to_go --use_baseline --gae_lambda ${lamb} --exp_name lunar_lander_lambda${lamb}; done;
+lambda=(0.0 0.95 0.98 0.99 1.0) && for lamb in ${lambda[@]}; do python cs285/scripts/run_hw2.py --env_name LunarLander-v2 --ep_len 1000 --discount 0.99 -n 300 -l 3 -s 128 -b 2000 -lr 0.001 --use_reward_to_go --use_baseline --gae_lambda ${lamb} --exp_name lunar_lander_lambda${lamb}; done;
 ```
 
 **Q1. Consider the parameter $\lambda$. What does $\lambda = 0$ correspond to? What about $\lambda = 1$? Relate this to the task performance in `LunarLander-v2`.**
