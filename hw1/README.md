@@ -2,7 +2,7 @@
 
 Imitation Learning tries to **mimic expert behavior** by learning a policy that just replicates the actions observed in a dataset without understanding or optimizing long-term rewards. Since the objective is simply to imitate, there’s no need to define or optimize a reward function. It is just a supervised learning problem where the inputs are states and the labels are expert actions.
 
-It’s common to confuse Offline Reinforcement Learning (Offline RL) with imitation learning because both rely on pre-collected data and do not involve active interaction with the environment (i.e., `env.step()`). However, they differ significantly in both goals and assumptions. Offline RL aims to learn a policy that maximizes cumulative reward even when the dataset contains suboptimal or exploratory behavior, while imitation learning assumes the data reflects expert decisions worth copying. See more details about Offline RL in a later section of [hw5](https://github.com/JeongHwaSik/cs285/blob/main/hw5/README.md).
+It’s common to confuse Offline Reinforcement Learning (Offline RL) with imitation learning because both rely on pre-collected data and do not involve active interaction with the environment (i.e., `env.step()`). However, they differ significantly in both goals and assumptions. Offline RL aims to learn a policy that maximizes cumulative reward even when the dataset contains suboptimal or exploratory behavior, while imitation learning assumes the data reflects expert decisions worth copying. See more details about Offline RL in a later section of [hw5](https://github.com/JeongHwaSik/cs285/tree/main/hw5#-offline-reinforcement-learning).
 
 ## Experiment 1: Behavioral Cloning
 
