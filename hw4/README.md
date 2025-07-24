@@ -1,12 +1,12 @@
 # 🎩 Model-Based Reinforcement Learning
 
-[Policy Gradient](https://github.com/JeongHwaSik/cs285/blob/main/hw2/README.md) and [Q-Learning](https://github.com/JeongHwaSik/cs285/blob/main/hw3/README.md) (including DQN) algorithms aim to directly learn a policy or value function (such as a Q-function) that maximizes the expected cumulative reward in order to predict future actions. However, these methods require extensive interaction with the environment to gather large amounts of training data, which may not be practical in many real-world scenarios.
+[Policy Gradient](https://github.com/JeongHwaSik/cs285/blob/main/hw2/README.md) and [Q-Learning](https://github.com/JeongHwaSik/cs285/blob/main/hw3/README.md) (including DQN) algorithms aim to directly learn a policy or value function (such as a Q-function) that maximizes the expected cumulative reward in order to predict future actions. However, these methods require extensive interaction with the environment (e.g., `env.step()`) to gather large amounts of training data, which may not be practical in many real-world scenarios.
 
-Model-Based Reinforcement Learning (MBRL) addresses this limitation by learning a transition model $f(s'|s, a)$ that approximates the true environment dynamics $p(s'|s, a)$ using only a limited number of interactions. Once learned, this model can be used to generate additional data reducing the need for direct environment interaction, which is sample efficient. However, relying on the real-world reward function (e.g., `env.get_reward(ob, ac)`) is still necessary, which limits practicality in many real-world applications.
+Model-Based Reinforcement Learning (MBRL) addresses this limitation by learning a transition model $f(s'|s, a)$ that approximates the true environment dynamics $p(s'|s, a)$ using only a limited number of interactions. Once learned, this model can be used to generate additional data reducing the need for direct environment interaction, which is sample efficient. However, **during planning**, relying on the real-world reward function (e.g., `env.get_reward()`) is still necessary, which limits practicality in many real-world applications.
 
-An extended variant of MBRL also learns a reward model, enabling the agent to predict both the next state and the expected reward for any given state-action pair. This approach allows the agent to perform imagination-based planning, where it internally simulates potential trajectories and their outcomes entirely within the learned models. (The [DreamSmooth](https://arxiv.org/pdf/2111.03930) paper refers to this process as "imagination.")
+An extended variant of MBRL also learns a reward model, enabling the agent to predict both the next state and the expected reward for any given state-action pair. This approach allows the agent to perform **imagination-based planning**, where it internally simulates potential trajectories and their outcomes entirely within the learned models.
 
-This imagination-based MBRL is particularly effective in challenging domains, such as environments with high-dimensional action spaces, long-horizon sequential tasks, or sparse rewards. By leveraging learned models to simulate diverse scenarios, the agent can explore and refine its strategy more efficiently than relying solely on real-world interactions.
+This imagination-based MBRL is particularly effective in challenging domains, such as environments with high-dimensional action spaces, long-horizon sequential tasks, or sparse rewards. By leveraging learned models to simulate diverse scenarios, the agent can explore and refine its strategy more efficiently than relying solely on real-world interactions. See [PlaNet](https://arxiv.org/pdf/1811.04551), [Dreamer](https://arxiv.org/pdf/1912.01603), and [DreamSmooth](https://arxiv.org/pdf/2111.03930) for more details.
 
 ## Experiment 1: MBRL with MPC
 
@@ -14,10 +14,12 @@ This imagination-based MBRL is particularly effective in challenging domains, su
 ![Tag](https://img.shields.io/badge/Off_Policy-red)
 ![Tag](https://img.shields.io/badge/Discrete_Action_Space-green)
 
-In this experiment, I implemented a Model-Based Reinforcement Learning (MBRL) with Model Predictive Control (MPC). The approach involves explicitly learning a dynamics model $f(s'|s, a)$ to approximate environment transitions $p(s'|s, a)$, which is then used for planning actions using control strategies such as the Cross-Entropy Method (CEM), random shooting, or Monte Carlo Tree Search (MCTS). For a more detailed analysis and implementation, see this [page](https://github.com/JeongHwaSik/cs285/blob/main/hw4/hw4.pdf).
+In this experiment, I implemented a Model-Based Reinforcement Learning (MBRL) with Model Predictive Control (MPC). The approach involves explicitly learning a dynamics model $f(s'|s, a)$ to approximate environment transitions $p(s'|s, a)$, which is then used for planning actions using MPC strategies such as the [Cross-Entropy Method (CEM)](https://arxiv.org/pdf/1909.11652), [random shooting](https://arxiv.org/pdf/1909.11652), or Monte Carlo Tree Search (MCTS). However, the problem is that planning requires access to the real-world environment in order to obtain rewards (e.g., `env.get_reward()`).
+
+For a more detailed analysis and implementation, see this [page](https://github.com/JeongHwaSik/cs285/blob/main/hw4/hw4.pdf).
 
 
-**❓Q1. Compare two action selection methods in MBRL, which are "derivative-free optimization": [CEM(Cross-Entropy Method)](https://arxiv.org/pdf/1909.11652) & [Random-Shooting](https://arxiv.org/pdf/1909.11652).**
+**❓Q1. Compare two action selection methods in MBRL, which are "derivative-free optimization": CEM(Cross-Entropy Method) & Random-Shooting.**
 
 <p align="center">
     <img src="https://github.com/user-attachments/assets/9e3534fe-a47b-4e1a-9010-9746e1770d4a" width="49%"/>
