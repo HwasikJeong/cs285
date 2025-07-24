@@ -29,7 +29,11 @@ python cs285/scripts/run_hw1.py --expert_policy_file cs285/policies/experts/Ant.
 
 The Behavior Cloning (BC) agent shows limited success in matching the expert policy across most environments. With the exception of `HalfCheetah-v4`, where the BC agent achieves approximately 80% of the expert's performance, all other environments fall below 30% closeness. In particular, performance in `Walker2d-v4` is notably poor, reaching only 6.61% of the expert's return.
 
-This performance gap can be attributed to a key limitation of Behavior Cloning: it ignores the environment’s dynamics, i.e., the state transition distribution $p(s'|s, a)$ and focuses solely on imitating the expert’s action distribution $\pi(a|s)$. As a result, BC is vulnerable to compounding errors, once it deviates from expert-like behavior, it cannot recover effectively due to its lack of environmental awareness.
+This performance gap can be attributed to a key limitation of Behavior Cloning: it ignores the environment’s dynamics (i.e., the state transition distribution $p(s'|s, a)$) and focuses solely on imitating the expert’s action distribution $\pi(a|s)$. As a result, BC is vulnerable to compounding errors, once it deviates from expert-like behavior, it cannot recover effectively due to its lack of environmental awareness. See the the visualization of compounding error below.
+
+<p align="center">
+    <img src="https://github.com/user-attachments/assets/51fc6d5e-594a-46bd-94fe-85a8bfa06b1f" width="99%"/>
+</p>
 
 </br>
 
