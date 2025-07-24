@@ -1,6 +1,25 @@
 Assignments for [Berkeley CS 285: Deep Reinforcement Learning, Decision Making, and Control](http://rail.eecs.berkeley.edu/deeprlcourse/).
 
-# 1. 🥷 Imitation Learning
+# Table of Contents
+
+### 1. [🥷 Imitation Learning]()
+### 2. [👮🏼‍♂️ Policy Gradients]()
+### 3. [🍎 Q-Learning (DQN)]()
+### 4. [🎩 Model-Based Reinforcement Learning]()
+### 5. [🔎 Exploration]()
+### 6. [💼 Offline Reinforcement Learning]()
+
+</br>
+
+# Demo Video
+
+| Demo 1 | Demo 2 |
+|--------|--------|
+| https://github.com/user-attachments/assets/2f44c5fb-f61d-4416-ab5d-ed811b7a23f8 | https://github.com/user-attachments/assets/484bcba9-099e-4f83-be3a-d6427c185cf2 |
+
+
+
+<!-- # 1. 🥷 Imitation Learning
 I implemented **Behavior Cloning (BC)**, which directly imitates the expert’s behavior, and **DAGGER**, which improves imitation by incorporating additional data collected through expert queries during the agent’s own rollouts.
 
 https://github.com/user-attachments/assets/2f44c5fb-f61d-4416-ab5d-ed811b7a23f8
@@ -27,4 +46,11 @@ https://github.com/user-attachments/assets/42ed7cc3-8174-43a0-a366-94b8915f7874
 
 </br>
 
-# 4. Model-Based Reinforcement Learning
+# 4. 🎩 Model-Based Reinforcement Learning
+I implemented a basic **Model-Based Reinforcement Learning (MBRL)** framework using two action selection strategies: the Cross-Entropy Method (CEM) and Random Shooting. While Monte Carlo Tree Search (MCTS) could also be used for action selection, it was not applied in this case. Additionally, I extended the implementation to include Model-Based Soft Actor-Critic (SAC), which is one of **Model-Based Policy Optimization (MBPO)**, that leverages learned transition dynamics unlike the standard Model-Free SAC (in hw3) that relies solely on real-world interactions.
+
+
+# 5. 🔎 Exploration
+
+
+# 6. 💼 Offline Reinforcement Learning -->
