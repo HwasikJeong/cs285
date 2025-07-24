@@ -2,12 +2,12 @@ Assignments for [Berkeley CS 285: Deep Reinforcement Learning, Decision Making, 
 
 # Table of Contents
 
-### 1. [🥷 Imitation Learning](https://github.com/JeongHwaSik/cs285/tree/main/hw1)
-### 2. [👮🏼‍♂️ Policy Gradients](https://github.com/JeongHwaSik/cs285/tree/main/hw2)
-### 3. [🍎 Q-Learning (DQN)](https://github.com/JeongHwaSik/cs285/tree/main/hw3)
-### 4. [🎩 Model-Based Reinforcement Learning](https://github.com/JeongHwaSik/cs285/tree/main/hw4)
-### 5. [🔎 Exploration](https://github.com/JeongHwaSik/cs285/tree/main/hw5)
-### 6. [💼 Offline Reinforcement Learning](https://github.com/JeongHwaSik/cs285/tree/main/hw5)
+### 1. [🥷 Imitation Learning](https://github.com/JeongHwaSik/cs285/tree/main/hw1#-imitation-learning)
+### 2. [👮🏼‍♂️ Policy Gradients](https://github.com/JeongHwaSik/cs285/tree/main/hw2#%EF%B8%8F-policy-gradients)
+### 3. [🍎 Q-Learning (DQN)](https://github.com/JeongHwaSik/cs285/tree/main/hw3#-q-learning)
+### 4. [🎩 Model-Based Reinforcement Learning](https://github.com/JeongHwaSik/cs285/tree/main/hw4#-model-based-reinforcement-learning)
+### 5. [🔎 Exploration](https://github.com/JeongHwaSik/cs285/tree/main/hw5#-exploration)
+### 6. [💼 Offline Reinforcement Learning](https://github.com/JeongHwaSik/cs285/tree/main/hw5#-offline-reinforcement-learning)
 
 </br>
 
