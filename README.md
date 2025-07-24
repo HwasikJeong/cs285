@@ -2,22 +2,30 @@ Assignments for [Berkeley CS 285: Deep Reinforcement Learning, Decision Making, 
 
 # Table of Contents
 
-### 1. [🥷 Imitation Learning]()
-### 2. [👮🏼‍♂️ Policy Gradients]()
-### 3. [🍎 Q-Learning (DQN)]()
-### 4. [🎩 Model-Based Reinforcement Learning]()
-### 5. [🔎 Exploration]()
-### 6. [💼 Offline Reinforcement Learning]()
+### 1. [🥷 Imitation Learning](https://github.com/JeongHwaSik/cs285/tree/main/hw1)
+### 2. [👮🏼‍♂️ Policy Gradients](https://github.com/JeongHwaSik/cs285/tree/main/hw2)
+### 3. [🍎 Q-Learning (DQN)](https://github.com/JeongHwaSik/cs285/tree/main/hw3)
+### 4. [🎩 Model-Based Reinforcement Learning](https://github.com/JeongHwaSik/cs285/tree/main/hw4)
+### 5. [🔎 Exploration](https://github.com/JeongHwaSik/cs285/tree/main/hw5)
+### 6. [💼 Offline Reinforcement Learning](https://github.com/JeongHwaSik/cs285/tree/main/hw5)
 
 </br>
 
-# Demo Video
+# Demo Videos
 
-| Demo 1 | Demo 2 |
-|--------|--------|
-| https://github.com/user-attachments/assets/2f44c5fb-f61d-4416-ab5d-ed811b7a23f8 | https://github.com/user-attachments/assets/484bcba9-099e-4f83-be3a-d6427c185cf2 |
+**Behavior Cloning** 
 
+https://github.com/user-attachments/assets/2f44c5fb-f61d-4416-ab5d-ed811b7a23f8
 
+**DAgger**
+
+https://github.com/user-attachments/assets/484bcba9-099e-4f83-be3a-d6427c185cf2
+
+https://github.com/user-attachments/assets/7c07762d-5ab9-4def-9cba-a3edd7cd5d4d
+
+https://github.com/user-attachments/assets/804d5d89-1d33-4396-ab9b-babf095c8cbe
+
+https://github.com/user-attachments/assets/42ed7cc3-8174-43a0-a366-94b8915f7874
 
 <!-- # 1. 🥷 Imitation Learning
 I implemented **Behavior Cloning (BC)**, which directly imitates the expert’s behavior, and **DAGGER**, which improves imitation by incorporating additional data collected through expert queries during the agent’s own rollouts.
