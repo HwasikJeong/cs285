@@ -37,15 +37,15 @@ python cs285/scripts/run_hw2.py --env_name CartPole-v0 -n 100 -b 4000 -rtg -na -
     <!-- <figcaption align="center">lb stands for large batch size</figcaption> -->
 </p>
 
-**Q1. Which value estimator has better performance without advantage normalization: the trajectory-centric one, or the one using reward-to-go?**
+**❓Q1. Which value estimator has better performance without advantage normalization: the trajectory-centric one, or the one using reward-to-go?**
 
 When the experiment was conducted without advantage normalization, the reward-to-go method (orange) converged to a reward of 200 faster than the trajectory-centric method (blue). Reward-to-go leverages the property of causality, meaning that the policy at time t’ cannot affect the reward at time t when t < t’. This method excludes rewards that occurred before time t when calculating the policy gradient and only includes rewards that occur afterward. As a result, it can reduce variance by removing noise when learning the policy.
 
-**Q2. Did advantage normalization help?**
+**❓Q2. Did advantage normalization help?**
 
 If advantage is used without normalization, the scale of the advantage can vary across different trajectory batches, causing large fluctuations during the policy gradient update process and potentially increasing variance. Additionally, due to these scale differences, extremely large policy updates may occur, reducing training stability. Therefore, by normalizing the advantage before applying it to the policy gradient, it is possible to prevent extremely large policy updates, align the scale of advantages across batches, reduce variance, and achieve relatively more stable learning and faster convergence.
 
-**Q3. Did the batch size make an impact?**
+**❓Q3. Did the batch size make an impact?**
 
 Looking at the graph of the naive policy gradient (blue), we can see that the model using the larger batch size (lb) on the lower side converges faster at the same 50,000 environment steps. This is similar to the principle in deep learning where given the same total number of images, increasing the batch size leads to faster optimization. (Larger batch size ⇒ More samples in one iteration ⇒ Lower variance gradient estimates.)
 
@@ -71,7 +71,7 @@ python cs285/scripts/run_hw2.py --env_name HalfCheetah-v4 -n 100 -b 5000 -rtg --
     <img src="https://github.com/user-attachments/assets/f75f0aff-99aa-489f-a2d9-ded463772378" width="49%"/>
 </p>
 
-**Q1. How does baseline gradient steps (`-bgs`) and baseline learning rate (`-blr`) affect the baseline learning curve and the performance of the policy?**
+**❓Q1. How does baseline gradient steps (`-bgs`) and baseline learning rate (`-blr`) affect the baseline learning curve and the performance of the policy?**
 
 <p align="center">
     <img src="https://github.com/user-attachments/assets/227462a3-f10d-44e0-a869-e7c7ac7c02e4" width="49%"/>
@@ -97,7 +97,7 @@ The larger the baseline gradient step, the more baseline updates occur within a 
 lambda=(0.0 0.95 0.98 0.99 1.0) && for lamb in ${lambda[@]}; do python cs285/scripts/run_hw2.py --env_name LunarLander-v2 --ep_len 1000 --discount 0.99 -n 300 -l 3 -s 128 -b 2000 -lr 0.001 --use_reward_to_go --use_baseline --gae_lambda ${lamb} --exp_name lunar_lander_lambda${lamb}; done;
 ```
 
-**Q1. Consider the parameter $\lambda$. What does $\lambda = 0$ correspond to? What about $\lambda = 1$? Relate this to the task performance in `LunarLander-v2`.**
+**❓Q1. Consider the parameter $\lambda$. What does $\lambda = 0$ correspond to? What about $\lambda = 1$? Relate this to the task performance in `LunarLander-v2`.**
 
 <p align="center">
     <img src="https://github.com/user-attachments/assets/594672cf-f1e9-4993-9d11-adaca3f30ce0" width="49%"/>
