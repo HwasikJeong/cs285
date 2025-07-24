@@ -98,7 +98,7 @@ python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/hopper_clipq.yaml
 python cs285/scripts/run_hw3_sac.py -cfg experiments/sac/hopper_redq.yaml
 ```
 
-DQN performs well in environments with discrete action spaces because computing $\max\limits_{a}Q(s,a)$ is straightforward. However, in continuous action spaces, finding this maximum becomes a challenging optimization problem — often non-linear and non-convex. To address this, Actor-Critic methods use two separate networks: one to approximate the Q-function (similar to DQN) and another to represent the policy $\pi$ that is explicitly trained to maximize the expected Q-value, $E_{a\sim\pi(a|s)}Q(s,a)$. There are two main approaches to updating the policy $\pi$: the **REINFORCE gradient estimator** and the **REPARAMETRIZATION trick**.
+DQN performs well in environments with discrete action spaces because computing $\max\limits_{a}Q(s,a)$ is straightforward. However, in continuous action spaces, finding this maximum becomes a challenging optimization problem, often non-linear and non-convex. To address this, [(Soft) Actor-Critic](https://arxiv.org/pdf/1801.01290) methods use two separate networks: one to approximate the Q-function (similar to DQN) and another to represent the policy $\pi$ that is explicitly trained to maximize the expected Q-value, $E_{a\sim\pi(a|s)}Q(s,a)$. There are two main approaches to updating the policy $\pi$: the **REINFORCE gradient estimator** and the **REPARAMETRIZATION trick**.
 
 **1️⃣ REINFORCE Gradient Estimator**
 
@@ -118,7 +118,7 @@ $$
 = E_{s\sim D, a\sim\pi(a|s)}[\nabla_{\theta}log[\pi_{\theta}(a|s)]Q(s,a)]
 $$
 
-**Q1. Compare the performance of single-sample REINFORCE and 10-sample REINFORCE.**
+**❓Q1. Compare the performance of single-sample REINFORCE and 10-sample REINFORCE.**
 
 REINFORCE works reasonably well when many samples are drawn from the policy $\pi$ to estimate the gradient. However, in high-dimensional action spaces, the variance of this estimator can become quite large, requiring significantly more samples to obtain stable and accurate updates. 
 
@@ -162,7 +162,7 @@ $$
  = \nabla_{\theta}E_{s\sim D, \epsilon\sim N}[\nabla_{\theta}Q(s,\mu+\sigma\epsilon)]
 $$
 
-**Q1. Compare single-sample REINFORCE and 10-sample REINFORCE with the REPARAMETERIZATION trick.**
+**❓Q1. Compare single-sample REINFORCE and 10-sample REINFORCE with the REPARAMETERIZATION trick.**
 
 <p align="center">
     <img src="https://github.com/user-attachments/assets/8a80d96f-4ae8-4a60-9d01-501a6146983c" width="49%"/>
