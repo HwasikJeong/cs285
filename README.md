@@ -13,17 +13,23 @@ Assignments for [Berkeley CS 285: Deep Reinforcement Learning, Decision Making, 
 
 # Demo Videos
 
-**Behavior Cloning** 
+### Behavior Cloning (BC)
 
 https://github.com/user-attachments/assets/2f44c5fb-f61d-4416-ab5d-ed811b7a23f8
 
-**DAgger**
+### DAgger
 
 https://github.com/user-attachments/assets/484bcba9-099e-4f83-be3a-d6427c185cf2
 
+### Policy Gradients (PG)
+
 https://github.com/user-attachments/assets/7c07762d-5ab9-4def-9cba-a3edd7cd5d4d
 
+### Generalized Advantage Estimation (GAE)
+
 https://github.com/user-attachments/assets/804d5d89-1d33-4396-ab9b-babf095c8cbe
+
+### Soft Actor-Critic (SAC)
 
 https://github.com/user-attachments/assets/42ed7cc3-8174-43a0-a366-94b8915f7874
 
