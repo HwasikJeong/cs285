@@ -44,11 +44,17 @@ Offline reinforcement learning (Offline RL) offers an alternative by learning so
 
 However, one major challenge arises from the mismatch in assumptions between computer vision and offline reinforcement learning (Offline RL). In computer vision, models are typically trained under the assumption that input images are i.i.d., which helps them learn generalized patterns effectively. In contrast, Offline RL often operates in out-of-distribution (OOD) scenarios where the agent must make decisions in states that were not well represented in the training data. To avoid unpredictable or unsafe behavior, the Offline RL agent must at least behave conservatively, closely matching the behavior policy $\pi_\beta$ (the policy used to collect the dataset) especially in regions of the state-action space where data is sparse.
 
+<p align="center">
+    <img src="https://github.com/user-attachments/assets/cc5aea33-42b2-44d6-b433-685ea72fe11e" width="99%"/>
+</p>
+
 (See more detailed Offline RL in these folllowing papers: [paper1](https://arxiv.org/pdf/2005.01643), [paper2](https://arxiv.org/pdf/1906.00949).)
 
 ## Experiment 1: Conservative Q-Learning (CQL)
 
 Offline RL wants to discourage the agent from assigning high Q-values to out-of-distribution (OOD) actions (not seen in the dataset $D$). At the same time, it encourages the agent to assign higher Q-values to for in-distribution actions. To address this, [Conservative Q-Learning (CQL)](https://arxiv.org/pdf/2006.04779) introduces an additional regularization term in its objective. This term works by minimizing the soft maximum of Q-values, specifically $\log\sum_{a}\exp(Q(s,a))$, which penalizes high Q-values across all actions. Simultaneously, it maximizes the Q-values $Q(s, a)$ of actions actually observed in the dataset $D$ ensuring the policy remains grounded in the data. This conservative approach helps improve stability and reliability in offline settings where exploration is not possible.
+
+(Note that the term 'overestimation' in CQL differs from its use in [Double-DQN](https://arxiv.org/pdf/1509.06461))
 
 **❓Q1. Compare CQL with naive DQN (where regularization coefficient $\alpha=0$).**
 
@@ -58,7 +64,7 @@ Offline RL wants to discourage the agent from assigning high Q-values to out-of-
     <!-- <figcaption align="center">lb stands for large batch size</figcaption> -->
 </p>
 
-As shown in the graph above, both DQN and CQL achieve similar evaluation returns (i.e., rewards), indicating comparable policy performance. However, CQL consistently produces lower Q-values compared to DQN. This behavior is intentional as CQL is designed to suppress Q-values in order to counteract overestimation, which is a fundamental challenge in offline reinforcement learning. By doing so, CQL promotes safer and more conservative value estimates when learning from fixed datasets without online interaction.
+The offline dataset used here is the one collected during the Exploration section (above) using the PointMass-Medium environment. As shown in the graph above, both DQN and CQL achieve similar evaluation returns (i.e., rewards), indicating comparable policy performance. However, CQL consistently produces lower Q-values compared to DQN. This behavior is intentional as CQL is designed to suppress Q-values in order to counteract overestimation, which is a fundamental challenge in offline reinforcement learning. By doing so, CQL promotes safer and more conservative value estimates when learning from fixed datasets without online interaction.
 
 <!-- **❓Q2. Compare CQL with different $\alpha$ values range from [0.1, 1.0, 10].**
 
@@ -68,7 +74,18 @@ As shown in the graph above, both DQN and CQL achieve similar evaluation returns
 </p> -->
 
 
-## Experiment 2: Policy Constraint Methods: IQL and AWAC
+## Experiment 2: IQL and AWAC (Policy Constraint Methods)
 
 While Conservative Q-Learning (CQL) addresses offline learning by adding a regularization term on top of the standard temporal difference (TD) error objective to penalize Q-value overestimation, methods like [Implicit Q-Learning (IQL)](https://arxiv.org/pdf/2110.06169) and [Advantage-Weighted Actor-Critic (AWAC)](https://arxiv.org/pdf/2006.09359) take a different approach. Instead of relying heavily on value correction, they aim to directly learn an in-distribution policy, a policy $\pi$ that stays close to the behavior policy $\pi_{\beta}$ present in the offline dataset. This helps avoid distributional shift and instability which are major challenges in offline reinforcement learning.
 
+**❓Q1. Compare AWAC with IQL.**
+
+<p align="center">
+    <img src="" width="49%"/>
+    <img src="" width="49%"/>
+    <!-- <figcaption align="center">lb stands for large batch size</figcaption> -->
+</p>
+
+AWAC and IQL performs quite well in PointMass-Medium but do not in PointMass-Hard 
+
+## Experiment 3: Offline Pre-Training → Online Fine-Tuning
