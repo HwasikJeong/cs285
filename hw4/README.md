@@ -1,12 +1,14 @@
 # 🎩 Model-Based Reinforcement Learning
 
-[Policy Gradient](https://github.com/JeongHwaSik/cs285/blob/main/hw2/README.md) and [Q-Learning](https://github.com/JeongHwaSik/cs285/blob/main/hw3/README.md) (including DQN) algorithms aim to directly learn a policy or value function (such as a Q-function) that maximizes the expected cumulative reward in order to predict future actions. However, these methods require extensive interaction with the environment (e.g., `env.step()`) to gather large amounts of training data, which may not be practical in many real-world scenarios.
+[Policy Gradient](https://github.com/JeongHwaSik/cs285/tree/main/hw2#%EF%B8%8F-policy-gradients) and [Q-Learning](https://github.com/JeongHwaSik/cs285/tree/main/hw3#-q-learning) (including DQN) algorithms aim to directly learn a policy or value function (such as a Q-function) that maximizes the expected cumulative reward in order to predict future actions. However, these Model-Free methods require extensive interaction with the environment (e.g., `env.step()`) to gather large amounts of training data for planning, which may not be practical in many real-world scenarios. (But if large amounts of data can be collected, Model-Free methods show promise as a general-purpose tools.)
 
-Model-Based Reinforcement Learning (MBRL) addresses this limitation by learning a transition model $f(s'|s, a)$ that approximates the true environment dynamics $p(s'|s, a)$ using only a limited number of interactions. Once learned, this model can be used to generate additional data reducing the need for direct environment interaction, which is sample efficient. However, **during planning**, relying on the real-world reward function (e.g., `env.get_reward()`) is still necessary, which limits practicality in many real-world applications.
+Model-Based Reinforcement Learning (MBRL) addresses this limitation by learning a transition model $f(s'|s, a)$ that approximates the true environment dynamics $p(s'|s, a)$ using only a limited number of interactions. Once learned, this model can be used to generate additional trajectories for planning, reducing the need for direct environment interaction, which is sample efficient. (You will see this MBRL algorithm in [Experiment 1](https://github.com/JeongHwaSik/cs285/tree/main/hw4#experiment-1-mbrl-with-mpc)) However, model accuracy can act as a bottleneck to policy quality especially when search space is huge. Moreover, **during planning**, relying on the real-world reward function (e.g., `env.get_reward()`) is still necessary, which limits practicality in many real-world applications.
 
 An extended variant of MBRL also learns a reward model, enabling the agent to predict both the next state and the expected reward for any given state-action pair. This approach allows the agent to perform **imagination-based planning**, where it internally simulates potential trajectories and their outcomes entirely within the learned models.
 
-This imagination-based MBRL is particularly effective in challenging domains, such as environments with high-dimensional action spaces, long-horizon sequential tasks, or sparse rewards. By leveraging learned models to simulate diverse scenarios, the agent can explore and refine its strategy more efficiently than relying solely on real-world interactions. See [PlaNet](https://arxiv.org/pdf/1811.04551), [Dreamer](https://arxiv.org/pdf/1912.01603), and [DreamSmooth](https://arxiv.org/pdf/2111.03930) for more details.
+This imagination-based MBRL is particularly effective in many challenging domains, such as environments with high-dimensional action spaces, long-horizon sequential tasks, or sparse rewards. By leveraging learned models to simulate diverse scenarios, the agent can explore and refine its strategy more efficiently than relying solely on real-world interactions. 
+
+But long-horizon tasks still remain a significant challenge in reinforcement learning because errors are keep cumulating. To address this, researchers have developed **skill-based** reinforcement learning, where a skill typically refers to a temporally extended sequence of actions. By planning over these higher-level skills instead of individual low-level actions, agents can make more efficient and coherent decisions. This abstraction allows planning to be both faster and more reliable, especially in complex environments where long-term dependencies are important. For more details on skill-based reinforcement learning, refer to [SkiMo](https://arxiv.org/pdf/2207.07560).
 
 ## Experiment 1: MBRL with MPC
 
@@ -14,7 +16,9 @@ This imagination-based MBRL is particularly effective in challenging domains, su
 ![Tag](https://img.shields.io/badge/Off_Policy-red)
 ![Tag](https://img.shields.io/badge/Discrete_Action_Space-green)
 
-In this experiment, I implemented a Model-Based Reinforcement Learning (MBRL) with Model Predictive Control (MPC). The approach involves explicitly learning a dynamics model $f(s'|s, a)$ to approximate environment transitions $p(s'|s, a)$, which is then used for planning actions using MPC strategies such as the [Cross-Entropy Method (CEM)](https://arxiv.org/pdf/1909.11652), [random shooting](https://arxiv.org/pdf/1909.11652), or Monte Carlo Tree Search (MCTS). However, the problem is that planning requires access to the real-world environment in order to obtain rewards (e.g., `env.get_reward()`).
+In this experiment, I implemented a Model-Based Reinforcement Learning (MBRL) with Model Predictive Control (MPC). The approach involves explicitly learning a dynamics model $f(s'|s, a)$ to approximate environment transitions $p(s'|s, a)$, which is then used for planning actions using MPC strategies such as the [Cross-Entropy Method (CEM)](https://arxiv.org/pdf/1909.11652), [Random Shooting](https://arxiv.org/pdf/1909.11652), or Monte Carlo Tree Search (MCTS). 
+
+However, the problem is that planning requires access to the real-world environment in order to obtain rewards (e.g., `env.get_reward()`). Additionally, since MPC plans over a finite (limited) horizon $H$, the agent may overlook delayed rewards or long-term dependencies, making it potentially shortsighted. 😢
 
 For a more detailed analysis and implementation, see this [page](https://github.com/JeongHwaSik/cs285/blob/main/hw4/hw4.pdf).
 
@@ -28,7 +32,7 @@ For a more detailed analysis and implementation, see this [page](https://github.
 
 Derivative-free optimization refers to optimizing action sequences without relying on gradient computations using methods such as Cross-Entropy Method (CEM) or Random Shooting (which are action selection methods for this experiment). These approaches are widely used due to their robustness against model inaccuracies mentioned in this [paper](https://arxiv.org/pdf/1912.01603)
 
-Since CEM is significantly slower than random shooting, I limited it to 5 iterations whereas random-shooting was run for 15 iterations.
+<!-- Since CEM is significantly slower than random shooting, I limited it to 5 iterations whereas random-shooting was run for 15 iterations. -->
 
 </br>
 
@@ -39,7 +43,7 @@ Since CEM is significantly slower than random shooting, I limited it to 5 iterat
 ![Tag](https://img.shields.io/badge/Discrete_Action_Space-green)
 ![Tag](https://img.shields.io/badge/Continuous_Action_Space-darkgreen)
 
-Instead of using action selection methods as in experiment 1, we can use an explicit policy such as Soft Actor-Critic (SAC) and train it using both real-world transitions $p(s'|s,a)$ and transitions from a learned model $f(s'|s,a)$ which is sample efficient. This is called [Model-Based Policy Optimization (MBPO)](https://arxiv.org/pdf/1906.08253).
+Instead of using action selection methods as in Experiment 1, we can use an explicit policy such as Soft Actor-Critic (SAC) and train it using both real-world transitions $p(s'|s,a)$ and transitions from a learned model $f(s'|s,a)$ which is sample efficient. However, a significant discrepancy can exist between the real environment and the learned model, potentially leading to inaccurate policy learning. To address this issue, the [Model-Based Policy Optimization (MBPO)](https://arxiv.org/pdf/1906.08253) paper proposes using short model-generated rollouts. This approach allows for more reliable and efficient policy optimization.
 
 **❓Q1. Compare Model-Free SAC and Model-Based SAC. (Model-Based SAC leverages additional training data generated from a learned dynamics model.)**
 
