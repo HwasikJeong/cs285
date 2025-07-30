@@ -39,7 +39,7 @@ As shown, the agent is able to cover a much larger and more diverse region of th
 
 ## Experiment 2: Skill Discovery
 
-The [“Diversity is All You Need” (DIAYN)](https://arxiv.org/pdf/1802.06070) paper introduces a novel paradigm for exploring the state space without relying on external reward signals. Instead of learning from environment provided rewards, DIAYN encourages the agent to learn a set of diverse behaviors by conditioning its policy on a latent variable, or "skill," denoted as $z$. The policy becomes $\pi(a|s,z)$ aiming to produce distinguishable behaviors for different values of $z$. This diversity is enforced using an information-theoretic objective:
+The [“Diversity is All You Need” (DIAYN)](https://arxiv.org/pdf/1802.06070) paper introduces a novel paradigm for exploring the state space without relying on external reward signals. Instead of learning from environment provided rewards, DIAYN encourages the agent to learn a set of diverse behaviors by conditioning its policy on a latent variable, or "skill" denoted as $z$. The policy becomes $\pi(a|s,z)$ aiming to produce distinguishable behaviors for different values of $z$. This diversity is enforced using an information-theoretic objective:
 
 $$
 F(\theta) = H[Z] - H[Z|S] + H[A|S,Z]
@@ -56,6 +56,8 @@ python cs285/scripts/run_diayn.py -cfg experiments/diayn/halfcheetah_diayn.yaml 
 ```
 
 (videos for each skills)
+
+</br>
 
 # 💼 Offline Reinforcement Learning
 
