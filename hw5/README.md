@@ -1,8 +1,14 @@
 # 🔎 Exploration
 
-See analysis of the Exploration [🔥here🔥](https://github.com/JeongHwaSik/cs285/blob/main/hw5/hw5.pdf).
+In reinforcement learning (RL), it is unrealistic to expect an agent to operate solely within previously encountered states. This is where exploration becomes essential. It allows the agent to discover new states and learn to handle diverse situations. As discussed earlier, standard approaches like [policy gradients]() and [Q-learning]() often rely on simple exploration strategies such as $\epsilon$-greedy or random action selection. However, these dithering methods typically require an exponentially large amount of data to achieve adequate exploration, making them inefficient in complex environments.
 
-## Experiment 1: 🔎 Exploration
+To address the limitations of simple, heuristic exploration strategies, researchers have developed more efficient and novelty-seeking exploration algorithms. These approaches generally fall into three broad categories. **Count-based exploration** methods, such as [Random Network Distillation (RND)](https://arxiv.org/pdf/1810.12894) and [EX2](https://arxiv.org/pdf/1703.01260), reward the agent for visiting less frequent or novel states. **Posterior sampling** approaches, like [Bootstrapped DQN](https://arxiv.org/pdf/1602.04621), encourage exploration by leveraging uncertainty in the agent’s value estimates. Lastly, **information gain-based** methods, such as [VIME](https://arxiv.org/pdf/1605.09674) and [Soft Actor-Critic (SAC)](https://arxiv.org/pdf/1801.01290), promote exploration by maximizing the agent’s information about the environment dynamics. In Experiment 1, I will implement RND as a representative of the count-based exploration family.
+
+Another area closely related to exploration is **Unsupervised Skill Discovery**, which focuses on learning diverse and distinguishable behaviors in the latent space without relying on external rewards. These methods typically use information-theoretic objectives as a pseudo-reward. Notable examples include [DIAYN](https://arxiv.org/pdf/1802.06070), [LSD](https://arxiv.org/pdf/2202.00914), and [CSD](https://arxiv.org/pdf/2302.05103). In Experiment 2, I will implement DIAYN, which uses mutual information to encourage the agent to discover a diverse set of skills.
+
+Note: A detailed analysis of exploration can be found [🔥here🔥](https://github.com/JeongHwaSik/cs285/blob/main/hw5/hw5.pdf).
+
+## Experiment 1: Random Network Distillation (RND)
 
 <!-- ![Tag](https://img.shields.io/badge/Model_Based-skyblue)
 ![Tag](https://img.shields.io/badge/Off_Policy-red)
@@ -30,6 +36,26 @@ A common strategy for exploration in reinforcement learning is to encourage the 
 The top row shows the results of reinforcement learning without exploration (i.e., using random action selection) across three environments of increasing difficulty: easy (left), medium (center), and hard (right). The bottom row displays the corresponding results when using an exploration-driven algorithm (RND) with an enhanced colormap to visualize the explored state space more clearly.
 
 As shown, the agent is able to cover a much larger and more diverse region of the state space when guided by an exploration strategy. Moreover, even in the hard environment, the agent is able to approach the goal state more closely. This highlights the necessity of exploration in promoting deeper and more directed search, particularly in complex environments where random actions fail to provide sufficient coverage.
+
+## Experiment 2: Skill Discovery
+
+The [“Diversity is All You Need” (DIAYN)](https://arxiv.org/pdf/1802.06070) paper introduces a novel paradigm for exploring the state space without relying on external reward signals. Instead of learning from environment provided rewards, DIAYN encourages the agent to learn a set of diverse behaviors by conditioning its policy on a latent variable, or "skill," denoted as $z$. The policy becomes $\pi(a|s,z)$ aiming to produce distinguishable behaviors for different values of $z$. This diversity is enforced using an information-theoretic objective:
+
+$$
+F(\theta) = H[Z] - H[Z|S] + H[A|S,Z]
+$$
+
+$$
+\ge H[A|S,Z] + E_{s\sim{p(z)}, s\sim{\pi(z)}}[\log{q_{\phi}(z|s)-\log{p(z)}}]
+$$
+
+Here, $H[A|S,Z]$ corresponds to the entropy of the policy, which is already present in algorithms like [Soft Actor-Critic (SAC)](https://arxiv.org/pdf/1801.01290). The second term, $\log{q_{\phi}(z|s)-\log{p(z)}}$ acts as a pseudo-reward that encourages the agent to produce behaviors that make the skill $z$ easily inferable from the resulting state. This allows the agent to autonomously discover a diverse repertoire of skills without any external task reward.
+
+```
+python cs285/scripts/run_diayn.py -cfg experiments/diayn/halfcheetah_diayn.yaml --n_skills 50
+```
+
+(videos for each skills)
 
 # 💼 Offline Reinforcement Learning
 
