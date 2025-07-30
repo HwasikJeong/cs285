@@ -93,3 +93,9 @@ def to_numpy(tensor: Union[torch.Tensor, dict]):
         return {k: to_numpy(v) for k, v in tensor.items()}
     else:
         return tensor.to("cpu").detach().numpy()
+    
+
+def concat_state_latent(s, z, n_skills):
+    z_one_hot = np.zeros(n_skills)
+    z_one_hot[z] = 1
+    return np.concatenate([s, z_one_hot])

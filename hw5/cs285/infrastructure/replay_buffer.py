@@ -1,6 +1,5 @@
 from cs285.infrastructure.utils import *
 
-
 class ReplayBuffer:
     def __init__(self, capacity=1000000):
         self.max_size = capacity
@@ -76,6 +75,45 @@ class ReplayBuffer:
         self.dones[self.size % self.max_size] = done
 
         self.size += 1
+
+
+class ReplayBufferForDIAYN(ReplayBuffer):
+    def __init__(self, capacity=1000000):
+        super().__init__(capacity)
+        self.zs = None 
+
+    def sample(self, batch_size):
+        rand_indices = np.random.randint(0, self.size, size=(batch_size,)) % self.max_size
+        return {
+            "observations": self.observations[rand_indices],
+            "actions": self.actions[rand_indices],
+            "rewards": self.rewards[rand_indices],
+            "next_observations": self.next_observations[rand_indices],
+            "dones": self.dones[rand_indices],
+            "zs": self.zs[rand_indices],
+        }
+
+    def insert(
+        self,
+        /,
+        observation: np.ndarray,
+        action: np.ndarray,
+        reward: np.ndarray,
+        next_observation: np.ndarray,
+        done: np.ndarray,
+        z: np.ndarray,
+    ):
+        super().insert(observation, action, reward, next_observation, done)
+
+        if isinstance(z, int):
+            z = np.array(z, dtype=np.int64)
+
+        if self.zs is None:
+            self.zs = np.empty((self.max_size, *z.shape), dtype=z.dtype)
+
+        assert z.shape == ()
+
+        self.zs[self.size % self.max_size] = z
 
 
 class MemoryEfficientReplayBuffer:
