@@ -57,17 +57,12 @@ python cs285/scripts/run_diayn.py -cfg experiments/diayn/halfcheetah_diayn.yaml 
 
 Below are some of the skills learned in `HalfCheetah-v4` environment using DIAYN:
 
-<p float="left">
-  <video width="45%" controls>
-    <source src="https://github.com/user-attachments/assets/4789f6c2-bff6-4447-abee-a256d60c585b" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-  <video width="45%" controls>
-    <source src="https://github.com/user-attachments/assets/19771395-49ac-4e2a-950b-bdc64381d418" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+<p align="center">
+    <img src="https://github.com/user-attachments/assets/0450ca4f-4e26-4ab8-9bec-70eed97c0b6b" width="33%"/>
+    <img src="" width="33%"/>
+    <img src="" width="33%"/>
+    <!-- <figcaption align="center">RL with exploration (RND) in three environments of increasing difficulty: easy (left), medium (center), and hard (right).</figcaption> -->
 </p>
-
 
 </br>
 
