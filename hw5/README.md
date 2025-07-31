@@ -69,15 +69,33 @@ Below are some of the skills learned in `HalfCheetah-v4` environment using DIAYN
 
 <table>
   <tr>
-    <td align="center" width="19%">
+    <td align="center">
       <figure>
-        <img src="https://github.com/user-attachments/assets/0450ca4f-4e26-4ab8-9bec-70eed97c0b6b" width="100%"/> 
+        <img src="https://github.com/user-attachments/assets/0450ca4f-4e26-4ab8-9bec-70eed97c0b6b" width="19%"/> 
         <figcaption>Walking Backward</figcaption>
       </figure>
     </td>
-    <td align="center" width="19%">
+    <td align="center">
       <figure>
-        <img src="https://github.com/user-attachments/assets/7d9b2545-9927-40c6-ae0d-51b96ea0a6ac" width="100%" />
+        <img src="https://github.com/user-attachments/assets/74f0014d-cceb-4891-b115-d319ef9a44f8" width="19%" />
+        <figcaption>Walking Forward</figcaption>
+      </figure>
+    </td>
+    <td align="center">
+      <figure>
+        <img src="https://github.com/user-attachments/assets/7d9b2545-9927-40c6-ae0d-51b96ea0a6ac" width="19%" />
+        <figcaption>Stand Still</figcaption>
+      </figure>
+    </td>
+    <td align="center">
+      <figure>
+        <img src="https://github.com/user-attachments/assets/1e62e8e9-70f1-4905-8172-a384883435ff" width="19%" />
+        <figcaption>Front Leg Standing</figcaption>
+      </figure>
+    </td>
+    <td align="center">
+      <figure>
+        <img src="https://github.com/user-attachments/assets/f04765b1-3bb0-409c-8021-28c8b6cbb42c" width="19%" />
         <figcaption>Half Flipping</figcaption>
       </figure>
     </td>
