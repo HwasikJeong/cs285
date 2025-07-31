@@ -57,7 +57,7 @@ class IQLAgent(AWACAgent):
         Update Q(s, a)
         """
         # TODO(student): Update Q(s, a) to match targets (based on V)
-        target_q_values = rewards + self.value_critic(next_observations).squeeze(-1)
+        target_q_values = rewards + self.target_value_critic(next_observations).squeeze(-1)
         qa_values = self.critic(observations)
         q_values = torch.gather(qa_values, dim=-1, index=actions.unsqueeze(1)).squeeze(1)
         loss = self.critic_loss(q_values, target_q_values)
@@ -103,8 +103,8 @@ class IQLAgent(AWACAgent):
         """
 
         # TODO(student): Compute target values for V(s)
-        vs = self.target_value_critic(observations).squeeze(1)
-        target_qs = torch.gather(self.critic(observations), dim=-1, index=actions.unsqueeze(1)).squeeze(1)
+        vs = self.value_critic(observations).squeeze(1)
+        target_qs = torch.gather(self.target_critic(observations), dim=-1, index=actions.unsqueeze(1)).squeeze(1)
 
         # TODO(student): Update V(s) using the loss from the IQL paper
         loss = self.iql_expectile_loss(self.expectile, vs, target_qs)
