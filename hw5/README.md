@@ -138,9 +138,21 @@ The offline dataset used here is the one collected during the Exploration sectio
 </p> -->
 
 
-## Experiment 2: Policy Constraint Methods
+## Experiment 2: AWAC & IQL
 
-While Conservative Q-Learning (CQL) addresses offline learning by adding a regularization term on top of the standard temporal difference (TD) error objective to penalize Q-value overestimation, methods like [Implicit Q-Learning (IQL)](https://arxiv.org/pdf/2110.06169) and [Advantage-Weighted Actor-Critic (AWAC)](https://arxiv.org/pdf/2006.09359) take a different approach. Instead of relying heavily on value correction, they aim to directly learn an in-distribution policy, a policy $\pi$ that stays close to the behavior policy $\pi_{\beta}$ present in the offline dataset. This helps avoid distributional shift and instability which are major challenges in offline reinforcement learning.
+Conservative Q-Learning (CQL) tackles the challenges of offline reinforcement learning by adding a regularization term to the standard temporal difference (TD) loss, discouraging overestimation of Q-values. In contrast, methods like [Implicit Q-Learning (IQL)](https://arxiv.org/pdf/2110.06169) and [Advantage-Weighted Actor-Critic (AWAC)](https://arxiv.org/pdf/2006.09359) take a different route: rather than correcting Q-values later, they aim to learn an in-distribution policy $\pi$ that remains close to the behavior policy $\pi_{\beta}$ found in the offline data. Thus, they replace the traditional target:
+
+$$
+Q(s,a)←r(s,a) + \gamma\max\limits_{a'}Q(s', a')
+$$
+
+with a policy-weighted expectation: 
+
+$$
+Q(s,a)←r(s,a) + \gamma E_{a'\sim\pi_{new}}[Q(s', a')]
+$$
+
+which biases learning toward actions $a'$ likely under the learned policy.
 
 ✔︎ **AWAC (Advantage Weighted Actor-Critic)**, as the name suggests, aims to learn an explicit actor policy $\pi$ by maximizing a weighted log-likelihood objective:
 
@@ -152,8 +164,25 @@ This objective encourages the policy to favor actions with high advantage estima
 
 By updating the policy in this way, the agent learns to focus on high-advantage actions and effectively ignores low-advantage or out-of-distribution (OOD) actions, especially if $\pi$ closely approximates the weighted behavior policy. Once the actor is updated, the Q-function can be trained using a standard temporal difference (TD) loss, similar to previous approaches.
 
-✔︎ **IQL** ~
+✔︎ Unlike AWAC, which explicitly performs policy improvement by weighting actions based on their estimated advantage, **Implicit Q-Learning (IQL)** takes an implicit approach. It estimates the state value function using expectile regression, which shifts focus toward high-performing actions within the dataset—without ever querying out-of-distribution actions.
 
+To do this, IQL introduces a separate value function $V_{\phi}(s)$ which is trained to match the expectile of the Q-values for actions seen in the data:
+
+$$
+L_{V}(\phi) = E_{(s,a)\sim{D}}[L_{2}^{\tau}(Q_{\theta}(s,a)-V_{\phi}(s))]
+$$
+
+Here, $L_{2}^{\tau}$ is the asymmetric squared loss that places more weight on overestimates when $\tau>0.5$ thus favoring higher Q-values. This helps approximate the maximum in-distribution value without querying actions outside the dataset.
+
+Then, the Q-function is updated using the value function as a bootstrapped target:
+
+$$
+L_{Q}(\theta) = E_{(s,a,s')\sim{D}}[(r(s,a)+\gamma V_{\phi}(s')-Q_{\theta}(s,a))^2]
+$$
+
+This two-stage update process enables IQL to avoid the risk of overestimation from out-of-distribution actions, a common issue in offline RL.
+
+</br>
 
 **❓Q1. Compare AWAC with IQL.**
 

@@ -20,19 +20,19 @@ Assignments for [Berkeley CS 285: Deep Reinforcement Learning, Decision Making, 
     <td align="center">
       <figure>
         <img src="https://github.com/user-attachments/assets/0450ca4f-4e26-4ab8-9bec-70eed97c0b6b" width="90%"/> 
-        <figcaption>Walking Backward</figcaption>
+        <figcaption>Backward Walking</figcaption>
       </figure>
     </td>
     <td align="center">
       <figure>
         <img src="https://github.com/user-attachments/assets/74f0014d-cceb-4891-b115-d319ef9a44f8" width="92%" />
-        <figcaption>Walking Forward</figcaption>
+        <figcaption>Forward Walking</figcaption>
       </figure>
     </td>
     <td align="center">
       <figure>
         <img src="https://github.com/user-attachments/assets/7d9b2545-9927-40c6-ae0d-51b96ea0a6ac" width="99%" />
-        <figcaption>Stand Still</figcaption>
+        <figcaption>Stationary Standing</figcaption>
       </figure>
     </td>
     <td align="center">
