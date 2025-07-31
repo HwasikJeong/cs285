@@ -1,6 +1,6 @@
 # 🔎 Exploration
 
-In reinforcement learning (RL), it is unrealistic to expect an agent to operate solely within previously encountered states. This is where exploration becomes essential. It allows the agent to discover new states and learn to handle diverse situations. As discussed earlier, standard approaches like [policy gradients]() and [Q-learning]() often rely on simple exploration strategies such as $\epsilon$-greedy or random action selection. However, these dithering methods typically require an exponentially large amount of data to achieve adequate exploration, making them inefficient in complex environments.
+In reinforcement learning (RL), it is unrealistic to expect an agent to operate solely within previously encountered states. This is where exploration becomes essential. It allows the agent to discover new states and learn to handle diverse situations. As discussed earlier, standard approaches like [policy gradients](https://github.com/JeongHwaSik/cs285/tree/main/hw2#%EF%B8%8F-policy-gradients) and [Q-learning](https://github.com/JeongHwaSik/cs285/tree/main/hw3#-q-learning) often rely on simple exploration strategies such as $\epsilon$-greedy or random action selection. However, these dithering methods typically require an exponentially large amount of data to achieve adequate exploration, making them inefficient in complex environments.
 
 To address the limitations of simple, heuristic exploration strategies, researchers have developed more efficient and novelty-seeking exploration algorithms. These approaches generally fall into three broad categories. **Count-based exploration** methods, such as [Random Network Distillation (RND)](https://arxiv.org/pdf/1810.12894) and [EX2](https://arxiv.org/pdf/1703.01260), reward the agent for visiting less frequent or novel states. **Posterior sampling** approaches, like [Bootstrapped DQN](https://arxiv.org/pdf/1602.04621), encourage exploration by leveraging uncertainty in the agent’s value estimates. Lastly, **information gain-based** methods, such as [VIME](https://arxiv.org/pdf/1605.09674) and [Soft Actor-Critic (SAC)](https://arxiv.org/pdf/1801.01290), promote exploration by maximizing the agent’s information about the environment dynamics. In Experiment 1, I will implement RND as a representative of the count-based exploration family.
 
@@ -39,7 +39,7 @@ As shown, the agent is able to cover a much larger and more diverse region of th
 
 ## Experiment 2: Skill Discovery
 
-The [“Diversity is All You Need” (DIAYN)](https://arxiv.org/pdf/1802.06070) paper introduces a novel paradigm for exploring the state space without relying on external reward signals. Instead of learning from environment provided rewards, DIAYN encourages the agent to learn a set of diverse behaviors by conditioning its policy on a latent variable, or "skill" denoted as $z$. The policy becomes $\pi(a|s,z)$ aiming to produce distinguishable behaviors for different values of $z$. This diversity is enforced using an information-theoretic objective:
+The [“Diversity is All You Need” (DIAYN)](https://arxiv.org/pdf/1802.06070) paper introduces a novel paradigm for exploring the state space without relying on external reward signals (unsupervised manner). Instead of learning from environment provided rewards, DIAYN encourages the agent to learn a set of diverse behaviors by conditioning its policy on a latent variable, or "skill" denoted as $z$. The policy becomes $\pi(a|s,z)$ aiming to produce distinguishable behaviors for different values of $z$. This diversity is enforced using an information-theoretic objective:
 
 $$
 F(\theta) = H[Z] - H[Z|S] + H[A|S,Z]
@@ -55,7 +55,19 @@ Here, $H[A|S,Z]$ corresponds to the entropy of the policy, which is already pres
 python cs285/scripts/run_diayn.py -cfg experiments/diayn/halfcheetah_diayn.yaml --n_skills 50
 ```
 
-(videos for each skills)
+Below are some of the skills learned in `HalfCheetah-v4` environment using DIAYN:
+
+<p float="left">
+  <video width="45%" controls>
+    <source src="https://github.com/user-attachments/assets/4789f6c2-bff6-4447-abee-a256d60c585b" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <video width="45%" controls>
+    <source src="https://github.com/user-attachments/assets/19771395-49ac-4e2a-950b-bdc64381d418" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</p>
+
 
 </br>
 
@@ -70,17 +82,17 @@ Offline reinforcement learning (Offline RL) offers an alternative by learning so
     <!-- <figcaption align="center">Pictorial illustration of classic online reinforcement learning (a), classic off-policy reinforcement learning (b), and offline reinforcement learning (c) mentioned in this <a href="https://arxiv.org/pdf/2005.01643">paper</a>.</figcaption> -->
 </p>
 
-However, one major challenge arises from the mismatch in assumptions between computer vision and offline reinforcement learning (Offline RL). In computer vision, models are typically trained under the assumption that input images are i.i.d., which helps them learn generalized patterns effectively. In contrast, Offline RL often operates in out-of-distribution (OOD) scenarios where the agent must make decisions in states that were not well represented in the training data. To avoid unpredictable or unsafe behavior, the Offline RL agent must at least behave conservatively, closely matching the behavior policy $\pi_\beta$ (the policy used to collect the dataset) especially in regions of the state-action space where data is sparse.
+However, one major challenge arises from the mismatch in assumptions between computer vision and offline reinforcement learning (Offline RL). In computer vision, models are typically trained under the assumption that input images are i.i.d., which helps them learn generalized patterns effectively. In contrast, Offline RL often operates in out-of-distribution (OOD) scenarios where the agent must make decisions in states that were not well represented in the training data. To avoid unpredictable or unsafe behavior, the Offline RL agent must at least behave conservatively, closely matching the behavior policy $\pi_\beta$ (the policy used to collect the dataset) especially in regions of the state-action space where data is sparse, or estimate Q-values with less bias (accurately).
 
 <p align="center">
     <img src="https://github.com/user-attachments/assets/cc5aea33-42b2-44d6-b433-685ea72fe11e" width="99%"/>
 </p>
 
-(See more detailed Offline RL in these folllowing papers: [paper1](https://arxiv.org/pdf/2005.01643), [paper2](https://arxiv.org/pdf/1906.00949).)
+(See more detailed Offline RL in these folllowing papers: [paper1](https://arxiv.org/pdf/2005.01643), [paper2](https://arxiv.org/pdf/1906.00949), [paper3](https://arxiv.org/pdf/2204.05618))
 
 ## Experiment 1: Conservative Q-Learning (CQL)
 
-Offline RL wants to discourage the agent from assigning high Q-values to out-of-distribution (OOD) actions (not seen in the dataset $D$). At the same time, it encourages the agent to assign higher Q-values to for in-distribution actions. To address this, [Conservative Q-Learning (CQL)](https://arxiv.org/pdf/2006.04779) introduces an additional regularization term in its objective. This term works by minimizing the soft maximum of Q-values, specifically $\log\sum_{a}\exp(Q(s,a))$, which penalizes high Q-values across all actions. Simultaneously, it maximizes the Q-values $Q(s, a)$ of actions actually observed in the dataset $D$ ensuring the policy remains grounded in the data. This conservative approach helps improve stability and reliability in offline settings where exploration is not possible.
+Offline RL wants to discourage the agent from assigning high Q-values to out-of-distribution (OOD) actions (not seen in the dataset $D$). At the same time, it encourages the agent to assign higher Q-values for in-distribution actions. To address this, [Conservative Q-Learning (CQL)](https://arxiv.org/pdf/2006.04779) introduces an additional regularization term in its objective. This term works by minimizing the soft maximum of Q-values, specifically $\log\sum_{a}\exp(Q(s,a))$, which penalizes high Q-values across all actions. Simultaneously, it maximizes the Q-values $Q(s, a)$ of actions actually observed in the dataset $D$ ensuring the policy remains grounded in the data. This conservative approach helps improve stability and reliability in offline settings where exploration is not possible.
 
 (Note that the term 'overestimation' in CQL differs from its use in [Double-DQN](https://arxiv.org/pdf/1509.06461))
 
@@ -102,9 +114,22 @@ The offline dataset used here is the one collected during the Exploration sectio
 </p> -->
 
 
-## Experiment 2: IQL and AWAC (Policy Constraint Methods)
+## Experiment 2: Policy Constraint Methods
 
 While Conservative Q-Learning (CQL) addresses offline learning by adding a regularization term on top of the standard temporal difference (TD) error objective to penalize Q-value overestimation, methods like [Implicit Q-Learning (IQL)](https://arxiv.org/pdf/2110.06169) and [Advantage-Weighted Actor-Critic (AWAC)](https://arxiv.org/pdf/2006.09359) take a different approach. Instead of relying heavily on value correction, they aim to directly learn an in-distribution policy, a policy $\pi$ that stays close to the behavior policy $\pi_{\beta}$ present in the offline dataset. This helps avoid distributional shift and instability which are major challenges in offline reinforcement learning.
+
+✔︎ **AWAC (Advantage Weighted Actor-Critic)**, as the name suggests, aims to learn an explicit actor policy $\pi$ by maximizing a weighted log-likelihood objective:
+
+$$
+\theta ⟵ \arg\max\limits_{\theta}E_{s,a\sim B}[\log\pi_{\theta}(a|s)\exp(\frac{1}{\lambda}A^{\pi_k}(s,a))]
+$$
+
+This objective encourages the policy to favor actions with high advantage estimates $A^{\pi_k(s,a)}$ while down-weighting actions with low advantages. As a result, the learned policy prioritizes actions that are likely to improve performance based on the current critic. You can also interpret this process as a form of regression toward the behavior policy $\pi_\beta$ with the advantage function guiding which actions to emphasize during learning.
+
+By updating the policy in this way, the agent learns to focus on high-advantage actions and effectively ignores low-advantage or out-of-distribution (OOD) actions, especially if $\pi$ closely approximates the weighted behavior policy. Once the actor is updated, the Q-function can be trained using a standard temporal difference (TD) loss, similar to previous approaches.
+
+✔︎ **IQL** ~
+
 
 **❓Q1. Compare AWAC with IQL.**
 
