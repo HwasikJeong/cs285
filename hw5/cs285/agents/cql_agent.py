@@ -43,7 +43,10 @@ class CQLAgent(DQNAgent):
         # TODO(student): modify the loss to implement CQL
         # Hint: `variables` includes qa_values and q_values from your CQL implementation
         qa_values, q_values = variables['qa_values'], variables['q_values']
-        cql_regularizer = (qa_values.exp().sum(dim=-1).log() - q_values).mean()
+
+        # minimize: qa_values.logsumexp(dim=-1)
+        # maximize: q_values
+        cql_regularizer = (qa_values.logsumexp(dim=-1) - q_values).mean()
         loss = loss + self.cql_alpha * cql_regularizer
 
         return loss, metrics, variables
