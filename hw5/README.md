@@ -200,19 +200,23 @@ This two-stage update process enables IQL to avoid the risk of overestimation fr
   <tr>
     <td align="center">
       <figure>
-        <img src="https://github.com/user-attachments/assets/ef05a340-256f-40e5-ac4f-bebce7a0eb52" width="99%"/> 
-        <figcaption>DQN</figcaption>
+        <img src="https://github.com/user-attachments/assets/f9523fbd-d89e-4829-82ec-c9d65941b380" width="99%"/> 
+        <figcaption>Offline Dataset</figcaption>
       </figure>
     </td>
     <td align="center">
       <figure>
-        <img src="https://github.com/user-attachments/assets/b8237e4e-2df9-4d00-8f92-f0da6c297140" width="99%" />
-        <figcaption>CQL</figcaption>
+        <img src="https://github.com/user-attachments/assets/deb02a21-a364-4c25-bdbb-6af9e533317a" width="33%" />
+        <img src="https://github.com/user-attachments/assets/310f3b49-2d6f-43cf-a91f-5ae6d1c9b401" width="33%" />
+        <img src="https://github.com/user-attachments/assets/84f744cd-24c4-42a5-a403-5584ecfff1f6" width="33%" />
+        <figcaption>Offline CQL</figcaption>
       </figure>
     </td>
     <td align="center">
       <figure>
-        <img src="https://github.com/user-attachments/assets/312cbfad-c592-4009-8ced-a37352afce87" width="99%" />
+        <img src="https://github.com/user-attachments/assets/23ff5a84-1b8c-4d79-b438-0b7c53750b4f" width="33%" />
+        <img src="https://github.com/user-attachments/assets/c12f9b20-6e94-4edf-8221-8dbaf2f035af" width="33%" />
+        <img src="https://github.com/user-attachments/assets/2e78daec-cde9-4472-bddb-e90197ffce5e" width="33%" />
         <figcaption>CQL + Fine-Tuning</figcaption>
       </figure>
     </td>
