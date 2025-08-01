@@ -72,12 +72,12 @@ class AWACAgent(DQNAgent):
         action_dist: Optional[torch.distributions.Categorical] = None,
     ):
         # TODO(student): compute the advantage of the actions compared to E[Q(s, a)]
-        qa_values = self.critic(observations)
+        qa_values = self.critic(observations) 
         q_values = torch.gather(qa_values, dim=-1, index=actions.unsqueeze(1)).squeeze(1) # Q(s, a)
 
-        new_actions = self.actor(observations).sample()
-        values = torch.gather(qa_values, dim=-1, index=new_actions.unsqueeze(1)).squeeze(1)
-        # values = torch.sum(self.actor(observations).probs * qa_values, dim=-1) # V(s) = E_{a}[Q(s,a)]
+        # new_actions = self.actor(observations).sample()
+        # values = torch.gather(qa_values, dim=-1, index=new_actions.unsqueeze(1)).squeeze(1)
+        values = torch.sum(self.actor(observations).probs * qa_values, dim=-1) # V(s) = E_{a}[Q(s,a)]
 
         advantages = q_values - values
         return advantages
@@ -91,7 +91,7 @@ class AWACAgent(DQNAgent):
         advantage = self.compute_advantage(observations, actions)
         log_action_prob = self.actor(observations).log_prob(actions)
 
-        loss = log_action_prob * torch.exp((1.0 / self.temperature) * advantage.detach())
+        loss = log_action_prob * torch.nn.functional.softmax((1.0 / self.temperature) * advantage.detach()) # normalized version
         loss = -torch.mean(loss)
 
         self.actor_optimizer.zero_grad()
