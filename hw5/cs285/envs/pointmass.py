@@ -469,12 +469,12 @@ class Pointmass(gym.Env):
 
         return dist
 
-    def plot_trajectory(self, observations):
+    def plot_trajectory(self, observations, color="blue"):
         fig = self.plt.figure()
         ax = fig.add_subplot(111)
         self.plot_walls(ax)
 
-        ax.plot(observations[:, 0], observations[:, 1], "b-o", alpha=0.3)
+        ax.plot(observations[:, 0], observations[:, 1], "-o", alpha=0.3, color=color)
         ax.scatter(
             [observations[0, 0]],
             [observations[0, 1]],
