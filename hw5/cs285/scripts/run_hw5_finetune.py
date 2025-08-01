@@ -100,11 +100,11 @@ def run_training_loop(config: dict, logger: Logger, args: argparse.Namespace):
 
         # Convert to PyTorch tensors
         batch = ptu.from_numpy(batch)
-
+        
         update_info = agent.update(
             batch["observations"],
             batch["actions"],
-            batch["rewards"] * (1 if config.get("use_reward", False) else 0),
+            batch["rewards"],
             batch["next_observations"],
             batch["dones"],
             step,
@@ -144,7 +144,7 @@ def run_training_loop(config: dict, logger: Logger, args: argparse.Namespace):
                 
             env_pointmass: Pointmass = env.unwrapped
             logger.log_figures(
-                [env_pointmass.plot_trajectory(trajectory["next_observation"]) for trajectory in trajectories],
+                [env_pointmass.plot_trajectory(trajectory["next_observation"], color="purple" if online_training else "blue") for trajectory in trajectories],
                 "trajectories",
                 step,
                 "eval"
@@ -161,11 +161,11 @@ def run_training_loop(config: dict, logger: Logger, args: argparse.Namespace):
         #         "eval",
         #     )
 
-    # Save the final dataset
-    dataset_file = os.path.join(args.dataset_dir, f"{config['dataset_name']}.pkl")
-    with open(dataset_file, "wb") as f:
-        pickle.dump(replay_buffer, f)
-        print("Saved dataset to", dataset_file)
+    # # Save the final dataset
+    # dataset_file = os.path.join(args.dataset_dir, f"{config['dataset_name']}.pkl")
+    # with open(dataset_file, "wb") as f:
+    #     pickle.dump(replay_buffer, f)
+    #     print("Saved dataset to", dataset_file)
 
     # # Render final heatmap
     # fig = visualize(
