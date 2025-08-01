@@ -91,7 +91,7 @@ class AWACAgent(DQNAgent):
         advantage = self.compute_advantage(observations, actions)
         log_action_prob = self.actor(observations).log_prob(actions)
 
-        loss = log_action_prob * torch.nn.functional.softmax((1.0 / self.temperature) * advantage.detach()) # normalized version
+        loss = log_action_prob * torch.exp((1.0 / self.temperature) * advantage.detach()) # normalized version: torch.nn.functional.softmax()
         loss = -torch.mean(loss)
 
         self.actor_optimizer.zero_grad()
@@ -108,4 +108,6 @@ class AWACAgent(DQNAgent):
         metrics["actor_loss"] = actor_loss
 
         return metrics
+    
+
     
