@@ -202,7 +202,7 @@ The offline dataset was collected using RND-based exploration in Experiment 1 as
     <img src="https://github.com/user-attachments/assets/f9523fbd-d89e-4829-82ec-c9d65941b380" width="30%"/> 
 </p>
 
-In this experiment, I pre-trained the models on the offline dataset and fine-tuned them in an online setting. The results below indicate that offline RL methods do not consistently reach the final destination and may even get stuck despite achieving the goal. In contrast, fine-tuning with online data reliably helps the models converge to the target.
+In this experiment, I pre-trained the models on the offline dataset and fine-tuned them in an online setting. The results below indicate that offline RL methods do not consistently reach the final destination and may even get stuck despite occasionally achieving the goal. (For a detailed analysis, see the performance of AWAC and IQL in the offline setting: note that IQL is less likely to get stuck against the walls compared to AWAC and CQL.) In contrast, fine-tuning with online data consistently helps the models converge to the target without getting stuck.
 
 <table>
   <tr>
@@ -212,16 +212,16 @@ In this experiment, I pre-trained the models on the offline dataset and fine-tun
         <img src="https://github.com/user-attachments/assets/310f3b49-2d6f-43cf-a91f-5ae6d1c9b401" width="49%" />
         <img src="https://github.com/user-attachments/assets/84f744cd-24c4-42a5-a403-5584ecfff1f6" width="49%" />
         <img src="https://github.com/user-attachments/assets/f5ba5561-1610-4b92-b6e8-f01c48a7b784" width="49%" />
-        <figcaption>CQL</figcaption>
+        <figcaption><b>CQL</b></figcaption>
       </figure>
     </td>
     <td align="center">
       <figure>
-        <img src="" width="49%" />
+        <img src="https://github.com/user-attachments/assets/7b0c1dd1-df97-4edd-9a48-73ba89ab1dc1" width="49%" />
         <img src="https://github.com/user-attachments/assets/c12f9b20-6e94-4edf-8221-8dbaf2f035af" width="49%" />
         <img src="https://github.com/user-attachments/assets/2e78daec-cde9-4472-bddb-e90197ffce5e" width="49%" />
         <img src="https://github.com/user-attachments/assets/08d3dcee-7e50-4fa2-b40e-86a6d095527b" width="49%" />
-        <figcaption>CQL + <b>Fine-Tuning</b></figcaption>
+        <figcaption><b>CQL + Fine-Tuning</b></figcaption>
       </figure>
     </td>
   </tr>
@@ -235,7 +235,7 @@ In this experiment, I pre-trained the models on the offline dataset and fine-tun
         <img src="https://github.com/user-attachments/assets/f0c0aa9f-d778-4ec4-92b1-ac7edc67be24" width="49%" />
         <img src="https://github.com/user-attachments/assets/be7de219-13fa-4096-9902-33c23d712a73" width="49%" />
         <img src="https://github.com/user-attachments/assets/2e886083-8c60-4ef1-91c5-17578bb5a673" width="49%" />
-        <figcaption>AWAC</figcaption>
+        <figcaption><b>AWAC</b></figcaption>
       </figure>
     </td>
     <td align="center">
@@ -244,7 +244,7 @@ In this experiment, I pre-trained the models on the offline dataset and fine-tun
         <img src="https://github.com/user-attachments/assets/ed3a18c2-9ed4-4701-be9c-b4b41b0d4cab" width="49%" />
         <img src="https://github.com/user-attachments/assets/a9a70c9e-575a-4458-a811-9f3d1adc82c0" width="49%" />
         <img src="https://github.com/user-attachments/assets/4ff8e42d-e8e9-4584-8a0a-dd1afea73a7d" width="49%" />
-        <figcaption>AWAC + <b>Fine-Tuning</b></figcaption>
+        <figcaption><b>AWAC + Fine-Tuning</b></figcaption>
       </figure>
     </td>
   </tr>
@@ -254,20 +254,20 @@ In this experiment, I pre-trained the models on the offline dataset and fine-tun
   <tr>
     <td align="center">
       <figure>
-        <img src="" width="49%" />
-        <img src="" width="49%" />
-        <img src="" width="49%" />
-        <img src="" width="49%" />
-        <figcaption>IQL</figcaption>
+        <img src="https://github.com/user-attachments/assets/f843e2b8-576e-4325-acf4-f0b8ef0a7c04" width="49%" />
+        <img src="https://github.com/user-attachments/assets/efb1d7d1-e129-4bed-aeed-025c6427823e" width="49%" />
+        <img src="https://github.com/user-attachments/assets/2b7e9d8a-e605-497b-97f3-742e2687b0ff" width="49%" />
+        <img src="https://github.com/user-attachments/assets/2d7f6789-1a8c-4a63-834e-b4ab69773be2" width="49%" />
+        <figcaption><b>IQL</b></figcaption>
       </figure>
     </td>
     <td align="center">
       <figure>
-        <img src="" width="49%" />
-        <img src="" width="49%" />
-        <img src="" width="49%" />
-        <img src="" width="49%" />
-        <figcaption>IQL + <b>Fine-Tuning</b></figcaption>
+        <img src="https://github.com/user-attachments/assets/7e210a38-5092-4194-9675-c443a54b780e" width="49%" />
+        <img src="https://github.com/user-attachments/assets/4426c458-b474-4d48-b6c9-987971896747" width="49%" />
+        <img src="https://github.com/user-attachments/assets/2a040f95-b07e-4823-9801-19c6494c80b6" width="49%" />
+        <img src="https://github.com/user-attachments/assets/1e34cea1-9a51-49fd-be40-4a558e306015" width="49%" />
+        <figcaption><b>IQL + Fine-Tuning</b></figcaption>
       </figure>
     </td>
   </tr>
