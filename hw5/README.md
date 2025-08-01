@@ -196,27 +196,31 @@ This two-stage update process enables IQL to avoid the risk of overestimation fr
 
 ## Experiment 3: Offline Pre-Training → Online Fine-Tuning
 
+Offline Dataset is gathered in Experiment 1 as below:
+
+<p align="center">
+    <img src="https://github.com/user-attachments/assets/f9523fbd-d89e-4829-82ec-c9d65941b380" width="99%"/> 
+</p>
+
+In this experiment 3, I'm going to pre-train models on offline dataset and fine-tune model using online dataset.  
+
 <table>
   <tr>
     <td align="center">
       <figure>
-        <img src="https://github.com/user-attachments/assets/f9523fbd-d89e-4829-82ec-c9d65941b380" width="99%"/> 
-        <figcaption>Offline Dataset</figcaption>
-      </figure>
-    </td>
-    <td align="center">
-      <figure>
-        <img src="https://github.com/user-attachments/assets/deb02a21-a364-4c25-bdbb-6af9e533317a" width="99%" />
-        <img src="https://github.com/user-attachments/assets/310f3b49-2d6f-43cf-a91f-5ae6d1c9b401" width="99%" />
-        <img src="https://github.com/user-attachments/assets/84f744cd-24c4-42a5-a403-5584ecfff1f6" width="99%" />
+        <img src="https://github.com/user-attachments/assets/deb02a21-a364-4c25-bdbb-6af9e533317a" width="49%" />
+        <img src="https://github.com/user-attachments/assets/310f3b49-2d6f-43cf-a91f-5ae6d1c9b401" width="49%" />
+        <img src="https://github.com/user-attachments/assets/84f744cd-24c4-42a5-a403-5584ecfff1f6" width="49%" />
+        <img src="https://github.com/user-attachments/assets/f5ba5561-1610-4b92-b6e8-f01c48a7b784" width="49%" />
         <figcaption>Offline CQL</figcaption>
       </figure>
     </td>
     <td align="center">
       <figure>
-        <img src="https://github.com/user-attachments/assets/23ff5a84-1b8c-4d79-b438-0b7c53750b4f" width="99%" />
-        <img src="https://github.com/user-attachments/assets/c12f9b20-6e94-4edf-8221-8dbaf2f035af" width="99%" />
-        <img src="https://github.com/user-attachments/assets/2e78daec-cde9-4472-bddb-e90197ffce5e" width="99%" />
+        <img src="https://github.com/user-attachments/assets/23ff5a84-1b8c-4d79-b438-0b7c53750b4f" width="49%" />
+        <img src="https://github.com/user-attachments/assets/c12f9b20-6e94-4edf-8221-8dbaf2f035af" width="49%" />
+        <img src="https://github.com/user-attachments/assets/2e78daec-cde9-4472-bddb-e90197ffce5e" width="49%" />
+        <img src="https://github.com/user-attachments/assets/08d3dcee-7e50-4fa2-b40e-86a6d095527b" width="49%" />
         <figcaption>CQL + Fine-Tuning</figcaption>
       </figure>
     </td>
