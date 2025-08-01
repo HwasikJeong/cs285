@@ -106,13 +106,13 @@ Offline reinforcement learning (Offline RL) offers an alternative by learning so
     <!-- <figcaption align="center">Pictorial illustration of classic online reinforcement learning (a), classic off-policy reinforcement learning (b), and offline reinforcement learning (c) mentioned in this <a href="https://arxiv.org/pdf/2005.01643">paper</a>.</figcaption> -->
 </p>
 
-However, one major challenge arises from the mismatch in assumptions between computer vision and offline reinforcement learning (Offline RL). In computer vision, models are typically trained under the assumption that input images are i.i.d., which helps them learn generalized patterns effectively. In contrast, Offline RL often operates in out-of-distribution (OOD) scenarios where the agent must make decisions in states that were not well represented in the training data, specifically $a'$ in $E_{a'\sim\pi_{new}}(s',a')$. To avoid unpredictable or unsafe behavior, the Offline RL agent must at least behave conservatively, closely matching the behavior policy $\pi_\beta$ (the policy used to collect the dataset) especially in regions of the state-action space where data is sparse, or estimate Q-values with less bias (accurately) without using $a'$.
-
-In summary, Offline RL involves balancing two competing objectives: **① learning a policy $\pi_{\theta}$ that outperforms the behavior policy $\pi_{\beta}$**, and **② limiting divergence from the behavior policy to mitigate distributional shift errors.** In this section, I will introduce three Offline RL methods(CQL, AWAC, and IQL), each of which takes a distinct approach to address this trade-off.
+However, one major challenge arises from the mismatch in assumptions between computer vision and offline reinforcement learning (Offline RL). In computer vision, models are typically trained under the assumption that input images are i.i.d., which helps them learn generalized patterns effectively. In contrast, Offline RL often operates in out-of-distribution (OOD) scenarios where the agent must make decisions in states that were not well represented in the training data, specifically $a'$ in $E_{a'\sim\pi_{new}}(s',a')$. (See the figure below that naive offline learning cannot scale 😢). To avoid unpredictable or unsafe behavior, the Offline RL agent must at least behave conservatively, closely matching the behavior policy $\pi_\beta$ (the policy used to collect the dataset) especially in regions of the state-action space where data is sparse, or estimate Q-values with less bias (accurately) without using $a'$.
 
 <p align="center">
     <img src="https://github.com/user-attachments/assets/cc5aea33-42b2-44d6-b433-685ea72fe11e" width="99%"/>
 </p>
+
+In summary, Offline RL involves balancing two competing objectives: **① learning a policy $\pi_{\theta}$ that outperforms the behavior policy $\pi_{\beta}$**, and **② limiting divergence from the behavior policy to mitigate distributional shift errors.** In this section, I will introduce three Offline RL methods(CQL, AWAC, and IQL), each of which takes a distinct approach to address this trade-off.
 
 (See more detailed Offline RL in these folllowing papers: [paper1](https://arxiv.org/pdf/2005.01643), [paper2](https://arxiv.org/pdf/1906.00949), [paper3](https://arxiv.org/pdf/2204.05618))
 
