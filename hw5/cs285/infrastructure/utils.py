@@ -16,7 +16,7 @@ def concat_state_latent(s, z, n):
         return np.concatenate([s, z_one_hot])
 
 def sample_trajectory(
-    env: gym.Env, policy: MLPPolicy, max_length: int, render: bool = False, z: int = None,
+    env: gym.Env, policy: MLPPolicy, max_length: int, render: bool = False, n_skills: int = None, z: int = None,
 ) -> Dict[str, np.ndarray]:
     """Sample a rollout in the environment from a policy."""
     ob = env.reset()
@@ -38,16 +38,16 @@ def sample_trajectory(
                 cv2.resize(img, dsize=(250, 250), interpolation=cv2.INTER_CUBIC)
             )
 
-        # TODO use the most recent ob to decide what to do
+        # use the most recent ob to decide what to do
         if z is not None:
-            ac = policy.get_action(concat_state_latent(ob, z, 4)) # FIXME
+            ac = policy.get_action(concat_state_latent(ob, z, n_skills))
         else:
             ac = policy.get_action(ob)
 
-        # TODO: take that action and get reward and next ob
+        # take that action and get reward and next ob
         next_ob, rew, done, info = env.step(ac)
 
-        # TODO rollout can end due to done, or due to max_length
+        # rollout can end due to done, or due to max_length
         steps += 1
         rollout_done = done or steps > max_length  # HINT: this is either 0 or 1
 
@@ -87,6 +87,7 @@ def sample_trajectories(
     min_timesteps_per_batch: int,
     max_length: int,
     render: bool = False,
+    n_skills: int = None,
     z: int = None,
 ) -> Tuple[List[Dict[str, np.ndarray]], int]:
     """Collect rollouts using policy until we have collected min_timesteps_per_batch steps."""
@@ -94,7 +95,7 @@ def sample_trajectories(
     trajs = []
     while timesteps_this_batch < min_timesteps_per_batch:
         # collect rollout
-        traj = sample_trajectory(env, policy, max_length, render, z)
+        traj = sample_trajectory(env, policy, max_length, render, n_skills, z)
         trajs.append(traj)
 
         # count steps
@@ -103,13 +104,13 @@ def sample_trajectories(
 
 
 def sample_n_trajectories(
-    env: gym.Env, policy: MLPPolicy, ntraj: int, max_length: int, render: bool = False, z: int = None,
+    env: gym.Env, policy: MLPPolicy, ntraj: int, max_length: int, render: bool = False, n_skills: int = None, z: int = None,
 ):
     """Collect ntraj rollouts."""
     trajs = []
     for _ in range(ntraj):
         # collect rollout
-        traj = sample_trajectory(env, policy, max_length, render, z)
+        traj = sample_trajectory(env, policy, max_length, render, n_skills, z)
         trajs.append(traj)
     return trajs
 
