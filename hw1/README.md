@@ -4,6 +4,18 @@ Imitation Learning tries to **mimic expert behavior** by learning a policy that 
 
 It’s common to confuse Offline Reinforcement Learning (Offline RL) with imitation learning because both rely on pre-collected data and do not involve active interaction with the environment (i.e., `env.step()`). However, they differ significantly in both goals and assumptions. Offline RL aims to learn a policy that maximizes cumulative reward even when the dataset contains suboptimal or exploratory behavior, while imitation learning assumes the data reflects expert decisions worth copying. See more details about Offline RL in a later section of [hw5](https://github.com/JeongHwaSik/cs285/tree/main/hw5#-offline-reinforcement-learning).
 
+There are three primary limitations of imitation learning:
+
+<span style="color:red">(1) Compounding errors (covariate shift):</span> Errors accumulate over time due to distribution mismatch between training and deployment. This issue can be mitigated by either collecting a large and diverse dataset or incorporating online corrective supervision, such as DAgger.
+
+<span style="color:red">(2) Multimodal demonstration data:</span> When using an $L_2$ loss, the policy tends to regress toward the mean of multiple valid trajectories, leading to suboptimal behavior. This limitation can be addressed by modeling multimodality explicitly using approaches such as Gaussian mixture models, categorical distributions, variational autoencoders (VAEs), or diffusion-based methods.
+
+<p align="center">
+    <img src="[https://github.com/user-attachments/assets/51fc6d5e-594a-46bd-94fe-85a8bfa06b1f](https://github.com/user-attachments/assets/81acf5c5-3383-4ffc-afe4-7cb5e97f2435)" width="99%"/>
+</p>
+
+<span style="color:red">(3) Mismatch in observability between expert and agent:</span> The expert may have access to privileged information that is not available to the agent, making exact imitation infeasible.
+
 ## Experiment 1: Behavioral Cloning
 
 Behavior Cloning (BC) is a straightforward imitation learning approach that directly maps states to actions by mimicking an expert’s behavior. It learns a policy by regressing over state-action pairs collected from expert demonstrations much like supervised learning.
