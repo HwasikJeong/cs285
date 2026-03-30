@@ -6,15 +6,19 @@ It’s common to confuse Offline Reinforcement Learning (Offline RL) with imitat
 
 There are three primary limitations of imitation learning:
 
-<span style="color:red">(1) Compounding errors (covariate shift):</span> Errors accumulate over time due to distribution mismatch between training and deployment. This issue can be mitigated by either collecting a large and diverse dataset or incorporating online corrective supervision, such as DAgger.
+**(1) Compounding errors (covariate shift):** Errors accumulate over time due to distribution mismatch between training and deployment. This issue can be mitigated by either collecting a large and diverse dataset or incorporating online corrective supervision, such as DAgger.
 
-<span style="color:red">(2) Multimodal demonstration data:</span> When using an $L_2$ loss, the policy tends to regress toward the mean of multiple valid trajectories, leading to suboptimal behavior. This limitation can be addressed by modeling multimodality explicitly using approaches such as Gaussian mixture models, categorical distributions, variational autoencoders (VAEs), or diffusion-based methods.
+**(2) Multimodal demonstration data:** When using an $L_2$ loss, the policy tends to regress toward the mean of multiple valid trajectories, leading to suboptimal behavior. This limitation can be addressed by modeling multimodality explicitly using approaches such as Gaussian mixture models, categorical distributions, variational autoencoders (VAEs), or diffusion-based methods.
 
 <p align="center">
-    <img src="[https://github.com/user-attachments/assets/51fc6d5e-594a-46bd-94fe-85a8bfa06b1f](https://github.com/user-attachments/assets/81acf5c5-3383-4ffc-afe4-7cb5e97f2435)" width="99%"/>
+    <img width="525" height="344" src="https://github.com/user-attachments/assets/81acf5c5-3383-4ffc-afe4-7cb5e97f2435" width="99%"/>
 </p>
 
-<span style="color:red">(3) Mismatch in observability between expert and agent:</span> The expert may have access to privileged information that is not available to the agent, making exact imitation infeasible.
+**(3) Mismatch in observability between expert and agent:** The expert may have access to privileged information that is not available to the agent, making exact imitation infeasible.
+
+<p align="center">
+    <img width="500" height="344" src="https://github.com/user-attachments/assets/1bb4ff7c-3fa1-4c49-9ee9-5071503ea201" width="99%"/>
+</p>
 
 ## Experiment 1: Behavioral Cloning
 
