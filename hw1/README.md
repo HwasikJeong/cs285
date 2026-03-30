@@ -6,8 +6,6 @@ It’s common to confuse Offline Reinforcement Learning (Offline RL) with imitat
 
 ## Experiment 1: Behavioral Cloning
 
-![Tag](https://img.shields.io/badge/Supervised_Learning-blue)
-
 Behavior Cloning (BC) is a straightforward imitation learning approach that directly maps states to actions by mimicking an expert’s behavior. It learns a policy by regressing over state-action pairs collected from expert demonstrations much like supervised learning.
 
 ```
@@ -41,7 +39,9 @@ This performance gap can be attributed to a key limitation of Behavior Cloning: 
 
 **DA**gger (short for **D**ataset **A**ggregation) is an imitation learning algorithm that collects training data from the distribution induced by the learned policy denoted as $p_{\pi_{\theta}}(o_t)$ rather than from the distribution of expert demonstrations $p_{data}(o_t)$.
 
-![Tag](https://img.shields.io/badge/Supervised_Learning-blue)
+<p align="center">
+    <img src="https://github.com/user-attachments/assets/67684690-d67d-481a-aa55-5f5f1ee2e3ee" width="99%"/>
+</p>
 
 ```
 python cs285/scripts/run_hw1.py --expert_policy_file cs285/policies/experts/Ant.pkl --env_name Ant-v4 --exp_name dagger_ant --n_iter 10 --do_dagger --expert_data cs285/expert_data/expert_data_Ant-v4.pkl --video_log_freq -1
